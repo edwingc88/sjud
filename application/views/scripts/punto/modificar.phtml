@@ -1,0 +1,162 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Punto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+    
+    <table class="general" summary="Modificar Punto de Cuenta e Informacion" style="width: 60%" id="tabla1">
+        <caption>MODIFICAR PUNTO DE CUENTA E INFORMACIÓN</caption>
+    </table>
+    
+    <br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 40%" id="tabla2">
+       
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Punto::E_MODALIDAD,$this->modalidadView)
+                         ->getElement(Application_Form_Punto::E_MODALIDAD)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->renderErrors();
+                         
+                ?>
+            </td>
+        </tr> 
+        <?php if($this->modalidadView): ?>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderErrors();
+                    
+                   /* echo $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderErrors();
+                    */
+                    $elemOrd = $this->form->getElement(Application_Form_Punto::E_DATOS_GERENCIA);
+                    echo ($elemOrd instanceof ZendX_JQuery_Form_Element_AutoComplete ? $elemOrd->renderUiWidgetElement() : $elemOrd->renderViewHelper()),
+                    $this->form->getElement(Application_Form_Punto::E_DATOS_GERENCIA)->renderDescription(),
+                   $this->form->getElement(Application_Form_Punto::E_DATOS_GERENCIA)->renderErrors();
+                     
+                    echo '/';
+                    echo $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderErrors();
+                    echo '/';
+                    
+                    echo $this->form->getElement(Application_Form_Punto::E_AÑO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_AÑO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_AÑO)->renderErrors();
+                    
+                    ?> 
+            </td>
+                      
+        </tr>
+        <?php endif;  ?>
+       
+        
+    </table> 
+ 
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Punto::E_BUSCAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Punto::E_CANCELAR)->renderViewHelper();
+        ?></p>
+ 
+ <?php if($this->mostrarView ):?>
+    <table class="general" summary="Titulo" style="width: 90%" id="tabla3">
+       <thead>
+       <tr>
+            <th colspan="8">Punto  <?php echo $this->escape($this->siglasView.'/'.$this->numPuntoView.'/'.$this->añoView);?>  </th>
+       </tr>
+            <tr>
+                <th width="1%">N°</th>
+                <th width="4%">Num Punto</th>                 
+                <th width="8%">Fecha Punto</th> 
+                <th width="20%">Gcia.Gral./Coord.</th>                                         
+                <th width="30%">Descripción.</th>                                                         
+                <th width="5%">Adjuntos.</th>                                                                        
+                <th width="5%">Estado.</th>
+                <th width="1%">Mod</th>        
+            </tr>    
+        </thead>
+        <tbody>
+            <?php
+            $consultaPunto = Application_Model_Punto::getDatosPunto($this->siglasView,$this->numPuntoView,$this->añoView,$this->modalidadView);
+        
+            if(!empty ($consultaPunto)):
+                $contador = 0;
+                foreach ($consultaPunto as $index => $consultaPunto):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($this->siglasView.'/'.$this->numPuntoView.'/'.$this->añoView);?>  </td>
+                        <td align="center"><?php echo $this->escape($consultaPunto->fecha_real); ?></td>
+                        <td align="center"><?php 
+                        //$gerencia = Application_Model_GerenciaGeneralCoordinacion::getDescriGerencia($consultaPunto->id_gga);
+                        //Fmo_Logger::debug($gerencia);
+                        echo $this->escape($consultaPunto->gga_nombre); ?></td>
+                        <td align="justify" ><?php echo $this->escape($consultaPunto->observacion); ?></td>
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'adjunto','indice' => $consultaPunto->indice, 'siglas' => $this->siglasView,'id' => $this->numPuntoView,
+                            'anio' => $this->añoView,'tipo' => $this->tipoView ,'modalidad' => $this->modalidadView)); ?>" title="Adjuntos">
+                                <?php echo $this->img('ico_archivo_pdf.png'); ?></a></td> 
+                        
+                       
+                       
+                        <td align="center">
+                        <?php 
+                        //$estado = Application_Model_Estado::getAllEstadoColoresId($consultaResoluciones->id_estado);
+                        Fmo_Logger::debug($consultaPunto);
+                        if($consultaPunto->color_id > 1):
+                            ?>
+                        <a href="<?php 
+                        echo $this->url(array('action' => 'estatus', 'id' => $consultaPunto->indice,'tipo' => $this->tipoView,
+                            'page' => $this->page )); ?>" title="Modificar Estado">
+                                <?php echo $this->img($consultaPunto->ruta1.'.png'); ?></a></td>
+                        <?php  ;else: 
+                            
+                            ?>
+                        <?php echo $this->img($consultaPunto->ruta1.'.png'); ?></td>
+                        <?php endif;?>
+                        
+                        
+                        
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'editar', 'indice' => $consultaPunto->indice, 'siglas' => $this->siglasView,'id' => $this->numPuntoView,
+                            'anio' => $this->añoView,'tipo' => $this->tipoView ,'modalidad' => $this->modalidadView)); ?>" title="Editar Punto">
+                                <?php echo $this->img('ico_editar.png'); ?></a></td>
+                   </tr>
+                    <?php
+                endforeach;
+                
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="8" align="center">No se encontro resolucion</td>
+                </tr>
+            <?php endif; ?>   
+        </tbody>
+    </table>
+  <?php endif; ?> 
+ 
+<?php
+
+endif;

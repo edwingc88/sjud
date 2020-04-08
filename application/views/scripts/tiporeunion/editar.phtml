@@ -1,0 +1,48 @@
+<?php
+/*
+ * Vista para el modificar los estados.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Tiporeunion):
+    $tituloForm = $this->form->getLegend();    
+    echo $this->form->renderForm(false);
+?>
+    <!-- Icono volver a la página principal-->
+  
+    <table class="general" summary="Modificar Tipo Reunion" style="width: 60%" id="tabla1">
+        <caption>MODIFICAR TIPO REUNIÓN</caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+          <?php
+    
+    ?>
+        
+        <tr>
+            <th style="width: 20%">
+                <?php 
+                
+                echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderDescription(),
+                         $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+       </table> 
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Estado::E_MODIFICAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Estado::E_CANCELAR)->renderViewHelper();
+        ?></p>
+      
+<?php
+endif;

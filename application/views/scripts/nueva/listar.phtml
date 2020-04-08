@@ -1,0 +1,97 @@
+<?php      
+
+if ($this->form instanceof Application_Form_Nueva):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+   
+?>
+
+   
+   <!-- EDWIN-->
+   <!--Icono volver a la página principal-->
+ <p align="right">
+    <a class="pureCssMenui0 boton_menu_principal" style=""  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Volver al Menú"; ?> </a>
+</p> 
+
+  <table id="listadoEstados" class="general" summary="Titulo" style="width: 80%" id="tabla1">
+        <caption>GERENCIAS Y COORDINACION</caption>
+        <thead>
+            <tr>
+                <th>Num</th>
+                <th>ID</th>
+                <th>Centro Costo</th>
+                <th>Descripción</th> 
+                <th>Responsable</th> 
+                <th>Accion <a href="<?php echo $this->url(array('action' => 'mostrar','page' => $this->page )); ?>" title="Nueva Gerencia">
+                                <?php echo $this->img('ico_usuario_agregar.png'); ?></a> </th> 
+            </tr>    
+        </thead>
+        <tbody>
+            <?php
+            $consultagcia = Application_Model_GerenciaGeneralCoordinacion::getGerencias();           
+            if(!empty($consultagcia)):
+                $contador = 0;
+                foreach ($consultagcia as $index => $consultagcia):
+                     $nrotrab    =  $consultagcia->cedula; 
+                     $trabajador = Fmo_Model_Personal::findOneByCedula($nrotrab); 
+                     $nombre     = $trabajador->{Fmo_Model_Personal::NOMBRE};
+                     $apellido   = $trabajador->{Fmo_Model_Personal::APELLIDO};
+                     $ficha      = $trabajador->{Fmo_Model_Personal::FICHA};
+                     $cadena     = 'F-'.$ficha.'- '.$nombre.', '.$apellido;
+                     /*Fmo_Logger::debug('PASO'); 
+                     Fmo_Logger::debug($trabajador); 
+                     $usuario    = $trabajador->{Fmo_Model_Personal::SIGLADO};                      
+                     $this->setDefault(self::E_NOMBSUPLENTE,"{$trabajador->{Fmo_Model_Personal::NOMBRE}} {$trabajador->{Fmo_Model_Personal::APELLIDO}}");*/
+                     ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($consultagcia->id); ?></td>
+                        <td align="center"><?php echo $this->escape($consultagcia->gga_costo); ?></td>
+                        <td align="left"><?php echo $this->escape($consultagcia->descripcion); ?></td> 
+                        <td align="left"><?php echo $this->escape($cadena); ?></td> 
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'modificar', 'id' => $consultagcia->id,
+                            'page' => $this->page )); ?>" title="Editar Datos">
+                                <?php echo $this->img('ico_editar.png'); ?></a></td> 
+                    </td>
+                    </tr>
+                    <?php
+                endforeach;
+              else:
+                  ?>
+                <tr>
+                    <td colspan="11" align="center">NO EXISTE INFORMACIÓN</td>
+                </tr>
+              <?php  
+              endif;
+              
+                /*$cargosconsulta = Application_Model_Cargo::getAllCargos();
+                if(!empty($cargosconsulta)):
+                $contador = 0;
+                foreach ($cargosconsulta as $index => $cargosconsulta):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($cargosconsulta->descripcion); ?></td>
+                        <td align="center"><?php echo $this->escape($cargosconsulta->nivel_cargo); ?></td>
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'editar', 'id_cargo' => $cargosconsulta->id,
+                            'page' => $this->page )); ?>" title="Editar Datos Estados">
+                                <?php echo $this->img('ico_editar.png'); ?></a></td>
+                        
+                        
+                        
+                    </td>
+                    </tr>
+                    <?php
+                endforeach;*/
+            //;else:
+                ?>
+                
+            <?php //endif; ?>   
+        </tbody>
+    </table>
+<?php
+endif;
+?>
+

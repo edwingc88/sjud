@@ -1,0 +1,121 @@
+<?php
+
+
+ /* Vista para agregar la junta directiva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+  */    
+
+if ($this->form instanceof Application_Form_Miembro):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+ <p align="right">
+    <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Volver al Menú"; ?> </a>
+</p>
+
+ <!-- Icono volver a la página principal       $this->img('ico_fondoboton.png') -->
+   <!--$this->redirect('/') -->
+ 
+   <!-- <a class="pureCssMenui0" href="http://fmodes-webdb-1/sjud/" title="Página Principal">
+    <img src="/sjud/public/images/vol_1.png" alt="vol_1.png" align="right" ></a>
+
+    <a class="pureCssMenui0" href="sjud/../" title="Página Principal">
+    <img src="../../public/images/vol_1.png" alt="vol_1.png" align="right" ></a>-->
+    
+     <table class="general" summary="Agregar Nuevo Miembro de Junta Directiva" style="width: 60%" id="tabla1">
+        <caption>CREAR NUEVO MIEMBRO DE JUNTA DIRECTIVA</caption>
+    </table>
+    
+<br><br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Miembro::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php 
+                    echo $this->form->setDefault(Application_Form_Miembro::E_FECHA, Fmo_Util::stringToZendDate($this->fechaView)->toString('dd/MM/yyyy'))
+                             ->getElement(Application_Form_Miembro::E_FECHA);
+                    
+                ?>   
+            </td>
+        </tr>  
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Miembro::E_CARGO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Miembro::E_CARGO,$this->idCargoView)
+                         ->getElement(Application_Form_Miembro::E_CARGO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Miembro::E_CARGO)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Miembro::E_FICHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Miembro::E_FICHA,$this->idFichaView)
+                         ->getElement(Application_Form_Miembro::E_FICHA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Miembro::E_FICHA)->renderErrors();
+                    echo $this->form->getElement(Application_Form_Miembro::E_BUSCAR)->renderViewHelper();
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Miembro::E_CEDULA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Miembro::E_CEDULA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Miembro::E_CEDULA)->renderDescription(),
+                         $this->form->getElement(Application_Form_Miembro::E_CEDULA)->renderErrors();
+                     ?> 
+            </td>
+                      
+        </tr>
+        
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Miembro::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Miembro::E_NOMBRE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Miembro::E_NOMBRE)->renderDescription(),
+                         $this->form->getElement(Application_Form_Miembro::E_NOMBRE)->renderErrors();
+                    ?> 
+            </td>
+                      
+        </tr>      
+      
+         
+    </table> 
+<div align="center">
+    <p class="p_boton"><?php
+        //echo $this->form->getElement(Application_Form_Miembro::E_BUSCAR)->renderViewHelper();
+        echo $this->form->getElement(Application_Form_Miembro::E_GUARDAR)->renderViewHelper();
+        //echo $this->form->getElement(Application_Form_Miembro::E_CANCELAR)->renderViewHelper();
+      ?>
+      
+    </p >
+        <!-- EDWIN-->
+    <p class="p_boton">
+        <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "  Cancelar  "; ?> </a>
+    </p> 
+</div>
+ 
+    
+<?php
+endif;
+

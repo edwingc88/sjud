@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" 
+              name="jr_consulta_agenda_reunion" language="groovy" 
+              pageWidth="612" pageHeight="792" 
+              whenNoDataType="AllSectionsNoDetail" 
+              columnWidth="555" leftMargin="20" rightMargin="20" 
+              topMargin="20" bottomMargin="20" 
+              whenResourceMissingType="Empty" 
+              uuid="d61b3973-e124-438b-9b6c-2642227d9647">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="query" class="java.lang.String"/>        
+	<parameter name="anio" class="java.lang.String"/>
+	<parameter name="PATH_IMAGES" class="java.lang.String"/>
+        <queryString>
+          <![CDATA[$P!{query}
+            ]]>
+	</queryString>
+	<field name="id" class="java.lang.String"/>         
+	<field name="fecha_real_reu" class="java.lang.String"/>       
+	<field name="tipo_nombre" class="java.lang.String"/>
+	<variable name="contador" class="java.lang.Integer" calculation="Count">
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+        
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="572" height="95" uuid="1d15bef6-da04-43d8-94b7-71360f55b41a"/>
+			</rectangle>
+			<image>
+				<reportElement x="460" y="9" width="80" height="80" uuid="dbedbbb7-6143-4c10-ac80-9f27c8ff3c6a"/>
+				<imageExpression><![CDATA[$P{PATH_IMAGES} + File.separator + "logo_fmo_nuevo.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="33" y="14" width="70" height="70" uuid="733c0baf-35af-4d4a-9b00-322650cc2572"/>
+				<imageExpression><![CDATA[$P{PATH_IMAGES} + File.separator + "logo_csv.png"]]></imageExpression>
+			</image>
+                        <staticText>
+				<reportElement x="105" y="10" width="350" height="25" uuid="53364c6e-f746-4daa-afa9-b9d36ceaaf15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.V.G. FERROMINERA ORINOCO C.A.]]></text>
+			</staticText>
+                        <staticText>
+				<reportElement x="105" y="20" width="350" height="25" uuid="53364c6e-f746-4daa-afa9-b9d36ceaaf15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SISTEMA DE JUNTA DIRECTIVA - SJUD]]></text>
+			</staticText>
+                        <textField>
+				<reportElement x="97" y="60" width="370" height="25" uuid="403b9639-a6b5-4c2d-82f8-980b699299b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["LISTADO DE REUNIONES DEL AÑO "+$P{anio}]]></textFieldExpression>
+			</textField>    
+                      
+                        
+
+			
+		</band>
+	</title>        
+        <pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+                   
+                    <!-- LINEA RECTANGULAR DE INFORMACION DATOS DEL LISTADO -->
+                        <rectangle>
+				<reportElement x="0" y="0" width="572" height="26" backcolor="#D2091D" uuid="12c625bc-0236-4fb2-9a9a-6cd6c88a5411"/>
+			</rectangle>
+                        
+                    
+                        <line>
+                            <reportElement x="0" y="0" width="1" height="26" uuid="257fbf5f-dff0-4b82-89d5-9ca5ae4344ac"/>
+			</line>
+                        
+                        
+                        <!-- LINEA SEPARACION  DE NUM -->
+                        <line>
+                            <reportElement x="42" y="0" width="1" height="26" uuid="257fbf5f-dff0-4b82-89d5-9ca5ae4344ac"/>
+			</line>
+                       
+                        <!-- LINEA SEPARACION  DE NUM RESOLUCION -->                    
+                        <line>
+                            <reportElement x="200" y="0" width="1" height="26" uuid="65e7f532-c5dd-4d2c-b4d7-733bf93e7cd3"/>
+			</line>
+                        
+                        <!-- LINEA SEPARACION  DE GERENCIA -->
+                        <line>
+                            <reportElement x="350" y="0" width="1" height="26" uuid="65e7f532-c5dd-4d2c-b4d7-733bf93e7cd3"/>
+			</line>
+                        
+                         
+                       
+                       
+                        
+                        <staticText>
+				<reportElement forecolor="#FEFEFE" x="18" y="6" width="10" height="20" uuid="01e8d07e-8a85-41ac-87b6-58b05a3b5cf3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N°]]></text>
+			</staticText>
+                       
+                        <staticText>
+				<reportElement forecolor="#FEFEFE" x="100" y="6" width="100" height="20" uuid="01e8d07e-8a85-41ac-87b6-58b05a3b5cf3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N° Reunión]]></text>
+			</staticText>
+                        
+                        <staticText>
+				<reportElement forecolor="#FEFEFE" x="250" y="6" width="100" height="20" uuid="01e8d07e-8a85-41ac-87b6-58b05a3b5cf3"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Reunión]]></text>
+			</staticText>
+			
+                        <staticText>
+				<reportElement forecolor="#FEFEFE" x="440" y="6" width="100" height="20" uuid="f37ea1b1-42fa-4ece-9bdb-ca44ba86172a"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo Reunión]]></text>
+			</staticText>
+			
+                       			 
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+               
+                        <line>
+				<reportElement x="0" y="16" width="572" height="1" uuid="454e9fa4-1021-4202-8c18-850169dbd45c"/>
+			</line>
+                        
+                        <line>
+				<reportElement x="0" y="-1" width="1" height="17" uuid="e1b7e7d6-2512-474b-9638-67ed2433b8b5"/>
+			</line>
+                        
+                        <!-- LINEA SEPARACION  DE ID-->                    
+                        <line>
+				<reportElement x="42" y="-1" width="1" height="17" uuid="fdecac31-1a8f-4efc-828b-bdf9e62688ec"/>
+			</line>
+                        
+                        <!-- LINEA SEPARACION  DE NUM FECHA -->                    
+                        <line>
+				<reportElement x="200" y="-1" width="1" height="17" uuid="fdecac31-1a8f-4efc-828b-bdf9e62688ec"/>
+			</line>
+                                                
+                        <!-- LINEA SEPARACION  DE TIPO --> 
+                        <line>
+				<reportElement x="350" y="-1" width="1" height="17" uuid="40d7f03f-49ef-41a7-a995-1e079cd529e5"/>
+			</line>
+                        
+                         <!-- LINEA SEPARACION  ULTIMA --> 
+                        <line>
+				<reportElement x="571" y="-1" width="1" height="17" uuid="40d7f03f-49ef-41a7-a995-1e079cd529e5"/>
+			</line>
+			                        
+                        
+                       
+                
+                       <textField>
+				<reportElement x="14" y="2" width="18" height="16" uuid="bd8b8173-c2be-4e08-8b13-7d5c12878c93"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+                                <textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+                        
+                        <textField>
+				<reportElement x="110" y="2" width="60" height="16" uuid="bd8b8173-c2be-4e08-8b13-7d5c12878c93"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+                                <textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+                        <textField>
+				<reportElement x="250" y="2" width="175" height="16" uuid="bd8b8173-c2be-4e08-8b13-7d5c12878c93"/>
+				<textElement textAlignment="Justified">
+					<font size="8" isBold="true"/>
+				</textElement>
+                                <textFieldExpression><![CDATA[$F{fecha_real_reu}]]></textFieldExpression>
+			</textField>
+                        <textField>
+				<reportElement x="353" y="2" width="572" height="16" uuid="bd8b8173-c2be-4e08-8b13-7d5c12878c93"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+                                <textFieldExpression><![CDATA[$F{tipo_nombre}]]></textFieldExpression>
+			</textField>
+                        
+                        
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+                <band splitType="Stretch"/>
+	</pageFooter>
+        
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

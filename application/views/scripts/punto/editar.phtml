@@ -1,0 +1,117 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Punto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> 
+    
+    <table class="general" summary="Titulo" style="width: 60%" id="tabla1">
+        <caption>MODIFICAR PUNTO <?php echo $this->stringToUpper($tituloForm); ?> </caption>
+    </table>
+    
+    <br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 40%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_GERENCIA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                     echo $this->form->getElement(Application_Form_Punto::E_GERENCIA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_GERENCIA)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_GERENCIA)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                   echo $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_MODALIDAD)->renderErrors();
+                              
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_TIPO_PUNTO)->renderErrors();
+                    
+                    echo $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_SIGLAS)->renderErrors();
+                    echo '/';
+                    echo $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_NUM_PUNTO1)->renderErrors();
+                    echo '/';
+                    
+                    echo $this->form->getElement(Application_Form_Punto::E_AÑO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_AÑO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_AÑO)->renderErrors();
+                               
+                    ?> 
+            </td>
+                      
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_ASUNTO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Punto::E_ASUNTO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_ASUNTO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_ASUNTO)->renderErrors();
+                     ?> 
+            </td>
+                      
+        </tr>
+          <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Punto::E_FECHA);
+                ?>   
+            </td>
+        </tr>  
+        
+        
+        
+        
+    </table> 
+    
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Punto::E_MODIFICAR)->renderViewHelper(),
+             $this->form->getElement(Application_Form_Punto::E_CANCELAR)->renderViewHelper();
+        ?></p>
+
+<?php
+endif;

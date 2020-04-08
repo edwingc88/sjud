@@ -1,0 +1,100 @@
+<?php
+
+/*
+ * Vista para el listado de los miembros anteriores de la junta directiva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */ 
+
+if ($this->form instanceof Application_Form_Miembro):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+
+<!--Icono volver a la página principal-->
+ <p align="right">
+ <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+ </p> 
+ 
+ 
+    <?php
+    
+    $consultaMiembros =  Application_Model_Miembros::getMiembrosAnterioresConActual();
+     if(!empty($consultaMiembros)):
+              
+    ?>
+    <table class="general" summary="Miembros Anteriores de la Junta Directiva" style="width: 40%" id="tabla1">
+       <thead>
+       <tr>
+            <th colspan="8">Miembros Anteriores de la Junta Directiva</th>
+       </tr>
+       </thead>
+    </table>
+    <?php
+    endif;
+              
+    ?>
+        <div class="accordion" >
+        <?php  $consultaMiembros =  Application_Model_Miembros::getMiembrosAnterioresConActual();
+        
+        
+            if(!empty($consultaMiembros)):
+               $fecha_actual = ''; 
+               foreach ($consultaMiembros as $index => $consultaMiembros): 
+                   
+                   
+                if($fecha_actual != null ): 
+                       if($fecha_actual == $consultaMiembros->fecha_periodo): 
+                           false;
+                        $nuevoPeriodo = false;     
+                        ;else:
+                            ?> 
+                                    </table>
+                                </div>
+                            </div>
+                            <?php 
+                        $nuevoPeriodo = true;    
+                        $periodo = $consultaMiembros->fecha_periodo;        
+                        endif;
+                    ;else:
+                    $nuevoPeriodo = true;     
+                    $periodo = $consultaMiembros->fecha_periodo;    
+                    endif;
+                ?>
+        <?php if($nuevoPeriodo == true): ?> 
+        <div style="background-image: url('<?php echo $this->imgPath('fondo_menu.png'); ?>')"> 
+            
+            <?php if($nuevoPeriodo == true): ?>
+                <h3 >   
+                    Período: <?php $fecha = new Zend_Date($consultaMiembros->fecha_periodo); echo $fecha->get(Zend_Date::DATE_LONG);?>
+                </h3>
+           <?php endif; ?>
+          
+            <div class="prueba" ">
+                <table class="acord"summary="Miembros Junta Directiva" >
+                      <?php endif; ?> 
+                    <tr>
+                        <td width="30%"  >  
+                        <?php echo ($consultaMiembros->descripcion) ?> 
+                        </td> 
+                        
+                        <td width="50%" style="font:normal 11px sans-serif;">  
+                        <?php  echo ($consultaMiembros->nombre) ?>
+                        </td>
+                    
+                    </tr>
+                      
+                
+       
+        <?php $fecha_actual = $consultaMiembros->fecha_periodo; 
+                endforeach;
+        endif;  ?>
+
+    </div>
+                      
+<?php 
+endif; 
+  
+    
+
+   

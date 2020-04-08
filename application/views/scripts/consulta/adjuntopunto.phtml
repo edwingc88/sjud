@@ -1,0 +1,64 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_AdjuntoPunto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+ <!--Icono volver a la página principal-->
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p> 
+  
+    <br></br>
+  
+    <table id="listadoAdjuntos" class="general" summary="Titulo" style="width: 60%">
+        <tr>
+        <th colspan="4">Documentos adjuntos del <?php echo $this->escape($tituloForm); ?> </th>
+        </tr>
+            <tr>
+                <th>N°</th>
+                <th>Nombre Documento</th>       
+            </tr>    
+        </thead>
+        
+        <tbody>
+            
+            <?php
+        if(!empty ($this->idView)):
+            $consultaArchivo = Application_Model_AdjuntoPunto::getAllAdjuntosPunto($this->idView);
+        
+            if(!empty ($consultaArchivo)):
+                $contador = 0;
+                foreach ($consultaArchivo as $index => $consultaArchivo):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                       <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'abrir','tipo_adjunto'=>'punto',  'id_adjunto' => $consultaArchivo->id,
+                            'page' => $this->page )); ?>" title="Ver Adjunto">
+                                <?php echo $this->escape($consultaArchivo->nombre); ?></a></td>
+                       
+                    </tr>
+                    <?php
+                endforeach;
+                
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="11" align="center">No tiene documentos adjuntos</td>
+                </tr> 
+               <?php
+endif;  endif; ?>
+        </tbody>
+    </table>
+<p align="center">
+  <?php echo $this->form->getElement(Application_Form_Resolucion::E_VOLVER)->renderViewHelper();?></p>
+
+
+<?php
+endif;

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="db_fmowebzf" schema="sch_sjud" type="PostgreSQL - 9.1.11">
+   <tables>
+      <table name="zf_archivo" numRows="0" remarks="Almacena las archivos del sistema en la Base de Datos" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria" size="13" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del archivo" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="directorio" nullable="false" remarks="Directorio del archivo" size="1024" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="descripcion" nullable="false" remarks="Descripción del archivo" size="512" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="tamanio" nullable="false" remarks="Tamaño del archivo en bytes" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="contenido" nullable="false" remarks="Contenido del archivo" size="2147483647" type="bytea"/>
+         <column autoUpdated="false" digits="0" id="6" name="suma_comprobacion" nullable="false" remarks="Suma de comprobación del archivo en MD5" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="tipo_mime" nullable="false" remarks="Tipo MIME del archivo" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="8" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_archivo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_notificacion" numRows="45" remarks="Almacena las notificaciones para los usuarios." schema="sch_sjud" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('sch_sjud.zf_notificacion_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria de la notificación." size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="zf_registro"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="tipo" nullable="false" remarks="Tipo de notificación: (W)arning, (E)rror, (I)nformation, y (S)uccessful." size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="para" nullable="false" remarks="CI N° del destinatario." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="de" nullable="false" remarks="Nombre del usuario, módulo, sistema que envía la notificación." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="mensaje" nullable="false" remarks="Mensaje de la notificación." size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="es_mensaje_html" nullable="false" remarks="Indica si el mensaje está en formato HTML o texto." size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="6" name="fecha_leido" nullable="true" remarks="Fecha y hora de lectura de la notificación, sí es nulo no ha sido leído." size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="7" name="fecha_registro" nullable="false" remarks="Fecha y hora del registro." size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_notificacion_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_registro" numRows="349" remarks="Contiene la información de auditoría del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('sch_sjud.zf_registro_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria de esta tabla" size="10" type="serial">
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="zf_notificacion"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_transaccion" nullable="true" remarks="Id o código de la transacción" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="operacion" nullable="true" remarks="Tipo de operación realizada CREATE/INSERT, DELETE o UPDATE" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="usuario" nullable="true" remarks="Siglado o cuenta del usuario" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="ip_cliente" nullable="true" remarks="Dirección IP del cliente" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="agente_cliente" nullable="true" remarks="Información del agente utilizado" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="tabla_esquema" nullable="true" remarks="Nombre del esquema de la tabla" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="tabla_nombre" nullable="true" remarks="Nombre de la tabla" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="tabla_clave_primaria" nullable="true" remarks="Nombre de la clave primaria de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="tabla_clave_primaria_valor" nullable="true" remarks="Valor de la clave primaria de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="10" name="tabla_campo" nullable="true" remarks="Nombre del campo en la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="11" name="tabla_valor_viejo" nullable="true" remarks="Valor anterior o viejo en el campo de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="12" name="tabla_valor_nuevo" nullable="true" remarks="Valor nuevo en el campo de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="13" name="fecha_hora" nullable="false" remarks="Fecha de la transacción" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_registro_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_estatus" numRows="4" remarks="Contiene los estados de los recursos" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria" size="1" type="bpchar">
+            <child column="id_estatus" foreignKey="zf_seguridad_recurso_id_estatus_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del estatus" size="50" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_estatus_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo" numRows="3" remarks="Contiene los grupos del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria del grupo, también funciona como rango del grupo" size="10" type="int4">
+            <child column="id_grupo" foreignKey="zf_seguridad_grupo_recurso_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_recurso"/>
+            <child column="id_grupo" foreignKey="zf_seguridad_grupo_usuario_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del grupo" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_grupo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="zf_seguridad_grupo_nombre_key" unique="true">
+            <column ascending="true" name="nombre"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo_recurso" numRows="18" remarks="Contiene los grupos y recursos del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_recurso" nullable="false" remarks="Clave compuesta y foránea con el recurso" size="1024" type="varchar">
+            <parent column="id" foreignKey="zf_seguridad_grupo_recurso_id_recurso_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_grupo" nullable="false" remarks="Clave compuesta y foránea con el grupo" size="10" type="int4">
+            <parent column="id" foreignKey="zf_seguridad_grupo_recurso_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id_recurso" sequenceNumberInPK="1"/>
+         <primaryKey column="id_grupo" sequenceNumberInPK="2"/>
+         <index name="zf_seguridad_grupo_recurso_pkey" unique="true">
+            <column ascending="true" name="id_recurso"/>
+            <column ascending="true" name="id_grupo"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo_usuario" numRows="3" remarks="Contiene los grupos y usuarios del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_usuario" nullable="false" remarks="Clave compuesta y foránea con el usuario" size="20" type="numeric">
+            <parent column="id" foreignKey="zf_seguridad_grupo_usuario_id_usuario_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_grupo" nullable="false" remarks="Clave compuesta y foránea con el grupo" size="10" type="int4">
+            <parent column="id" foreignKey="zf_seguridad_grupo_usuario_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id_usuario" sequenceNumberInPK="1"/>
+         <primaryKey column="id_grupo" sequenceNumberInPK="2"/>
+         <index name="zf_seguridad_grupo_usuario_pkey" unique="true">
+            <column ascending="true" name="id_usuario"/>
+            <column ascending="true" name="id_grupo"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_recurso" numRows="18" remarks="Contiene los recursos del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria del recurso, es una cadena que concatena: modulo/controlador/acción" size="1024" type="varchar">
+            <child column="id_recurso" foreignKey="zf_seguridad_grupo_recurso_id_recurso_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_estatus" nullable="false" remarks="Estatus del recurso: Activo, Denegado, Mantenimiento o Contrucción" size="1" type="bpchar">
+            <parent column="id" foreignKey="zf_seguridad_recurso_id_estatus_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_estatus"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_recurso_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_usuario" numRows="3" remarks="Contiene los usuarios del sistema" schema="sch_sjud" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria y CI del usuario" size="20" type="numeric">
+            <child column="id_usuario" foreignKey="zf_seguridad_grupo_usuario_id_usuario_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="clave" nullable="false" remarks="Contraseña del usuario" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="siglado" nullable="false" remarks="Contraseña del usuario" size="32" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="caducidad" nullable="true" remarks="Indica la fecha de caducidad de la contraseña" size="13" type="date"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="4" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_usuario_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>

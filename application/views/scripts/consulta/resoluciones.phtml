@@ -1,0 +1,240 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+ 
+<!-- Icono volver a la página principal-->
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p> 
+  
+    <table class="general" summary="Criterios de busqueda Resoluciones" style="width: 60%" id="tabla1">
+        <caption>Criterios de búsqueda Resoluciones</caption>
+    </table>
+    
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 50%" id="tabla2">
+            
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION,$this->numResolucionView)
+                         ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderErrors();
+                    echo '/';
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION1,$this->numResolucion1View)
+                         ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderErrors();
+                    echo '/';
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_AÑO,$this->anioResolucionView)
+                         ->getElement(Application_Form_Resolucion::E_AÑO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_AÑO)->renderErrors();
+                                  
+                    ?> 
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NUM_REUNION)->getLabel(); ?>
+            </th>
+            
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_REUNION,$this->numReunionView)
+                         ->getElement(Application_Form_Resolucion::E_NUM_REUNION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_REUNION)->renderErrors();
+                ?> 
+            </td>
+                      
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                   echo $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->renderDescription(),
+                         $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->renderErrors();
+                    
+                ?>   
+            </td>
+        </tr>
+        
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_PALABRA_CLAVE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_PALABRA_CLAVE,$this->palabraView)
+                         ->getElement(Application_Form_Resolucion::E_PALABRA_CLAVE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_PALABRA_CLAVE)->renderErrors();
+                ?>
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php 
+                    
+                        echo $this->form->setDefault(Application_Form_Resolucion::E_FECHA, $this->fechaView)
+                             ->getElement(Application_Form_Resolucion::E_FECHA);
+                    
+                ?>   
+            </td>
+        </tr>  
+        <tr>
+         <th style="width: 20%">
+               <?php echo $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                     echo $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->renderErrors();
+                    
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+         <tr>
+         <th style="width: 20%">
+               <?php echo $this->form->getElement(Application_Form_Resolucion::E_AÑO2)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_AÑO2,$this->anio2View)
+                         ->getElement(Application_Form_Resolucion::E_AÑO2)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_AÑO2)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+        </tr>
+    </table> 
+    
+    
+        <p align="center"> <?php
+        echo $this->form->getElement(Application_Form_Resolucion::E_BUSCAR)->renderViewHelper(),
+             $this->form->getElement(Application_Form_Resolucion::E_LIMPIAR)->renderViewHelper(),
+             $this->form->getElement(Application_Form_Resolucion::E_CANCELAR)->renderViewHelper();
+        ?> </p>
+ 
+        <?php
+        if($this->mostrarView != null):
+        ?>
+        <table class="general" summary="Listado de Resoluciones" style="width: 90%"id="tabla3">
+       <thead>
+       <tr>
+            <th colspan="9">Listado de Resoluciones </th>
+       </tr>
+          
+            <tr>
+                <th width="1%">N° Resol.</th>
+                <th width="6%">N° Reunión</th>
+                <th width="8%">Fecha Reunión</th>
+                <th width="15%">Gerencia</th>
+                <th width="20%">Descripción</th>
+                <th width="1%">Det</th>
+                <th width="5%">Adjuntos</th>
+                <th width="8%">Estatus</th>
+                <th width="4%">Avances</th>        
+            </tr>    
+        </thead>
+        <tbody>
+              <?php
+                if (($this->data instanceof Zend_Paginator) && $this->data->count()):
+                foreach($this->data as $consultaResoluciones):
+                ?>        
+                    <tr>
+                        <td align="center"><?php echo $this->escape($consultaResoluciones->id1 . '/' .$consultaResoluciones->id2 . '/' . $consultaResoluciones->anio); ?> </td>
+                            <td align="center"><?php 
+                         echo $this->escape($consultaResoluciones->id_reu); ?></td>
+                        <td align="center"><?php echo $this->escape(Fmo_Util::stringToZendDate($consultaResoluciones->fecha_reu)->toString('dd/MM/yyyy')); ?></td>
+                        <td align="center"><?php 
+                        //$consultaGerencia = Application_Model_GerenciaGeneralCoordinacion::getDescriGerencia($consultaResoluciones->id_gga);
+                        echo $this->escape($consultaResoluciones->gga_nombre); ?></td>
+                        
+                        <td align="justify" ><?php echo $this->escape($consultaResoluciones->observacion); ?></td>
+                        
+                        <td align="center">
+                            <a href="<?php echo $this->url(array('action' => 'detalleresolucion', 'id' => $consultaResoluciones->indice,
+                            'id1' => $consultaResoluciones->id1, 'id2' => $consultaResoluciones->id2,'anio' => $this->anioView,
+                            'numRes' => $this->numResolucionView,
+                            'numResolucion' => $this->numResolucion1View,
+                            'anioRes' => $this->anioResolucionView,
+                            'numReu' => str_replace("/", "_", $this->numReunionView),
+                            'gerenciaRes' => $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->getValue(),
+                            'asunto' => $this->palabraView,
+                            'fechaRes' => str_replace("/", "_", $this->fechaView),                          
+                            'estadoRes' => $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->getValue(),
+                            'anio2' => $this->anio2View, 
+                            'page' => $this->page )); ?>" title="Detalle Resolucion">
+                                <?php echo $this->img('ico_detalle.png'); ?></a></td>
+                        
+                        
+                        <td align="center">
+                            <a href="<?php echo $this->url(array('action' => 'adjuntoresolucion', 'id' => $consultaResoluciones->indice,
+                            'numRes' => $this->numResolucionView,
+                            'numResolucion' => $this->numResolucion1View,
+                            'anioRes' => $this->anioResolucionView,
+                            'numReu' => str_replace("/", "_", $this->numReunionView),
+                            'gerenciaRes' => $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->getValue(),
+                            'asunto' => $this->palabraView,
+                            'fechaRes' => str_replace("/", "_", $this->fechaView),                          
+                            'estadoRes' => $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->getValue(),
+                            'anio2' => $this->anio2View, 
+                            'page' => $this->page )); ?>" title="Ver adjuntos">
+                                <?php echo $this->img('ico_archivo_pdf.png'); ?></a></td>
+                        <td align="center"><?php echo $this->escape($consultaResoluciones->estado_nombre); ?></td>
+                        
+                        
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'avanceresolucion', 'id' => $consultaResoluciones->indice,
+                            'numRes' => $this->numResolucionView,
+                            'numResolucion' => $this->numResolucion1View,
+                            'anioRes' => $this->anioResolucionView,
+                            'numReu' => str_replace("/", "_", $this->numReunionView),
+                            'gerenciaRes' => $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->getValue(),
+                            'asunto' => $this->palabraView,
+                            'fechaRes' => str_replace("/", "_", $this->fechaView),                          
+                            'estadoRes' => $this->form->getElement(Application_Form_Resolucion::E_ESTADO)->getValue(),
+                            'anio2' => $this->anio2View, 
+                            'page' => $this->page )); ?>" title="Ver Avances">
+                                <?php echo $this->escape('Avances'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="11" align="center">No se encontraron resoluciones</td>
+                </tr>
+            <?php endif; ?>   
+        </tbody>
+    </table>
+        <?php  if ($this->data instanceof Zend_Paginator):
+        echo $this->paginationControl($this->data);
+        endif; ?> 
+        <br>
+    <?php
+    endif;
+    
+    endif;
+    ?>
+
+   

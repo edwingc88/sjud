@@ -1,0 +1,22 @@
+<!-- Icono volver a la página principal-->
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p>  
+
+<table class="general" summary="MODULO DE CARGA DE RESOLUCIONES">
+<caption>MODULO DE CARGA DE RESOLUCIONES</caption> 
+ 
+<th align="center" width="2%">Seleccione:</th>
+
+<td width="40%" height="10">
+<label>
+<input id="resolucion-NR" type="radio" checked="checked" value="NR" name="chkresol">
+Nueva Resolución
+</label>   
+<label>
+<input id="resolucion-MD" type="radio" value="MD" name="chkresol">
+Modificar Resolución
+</label>    
+ 
+</table>
+    

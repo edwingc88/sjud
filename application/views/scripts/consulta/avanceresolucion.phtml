@@ -1,0 +1,60 @@
+<?php
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    ?>
+
+<!--Icono volver a la página principal-->
+   <p align="right">
+   <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+   </p> 
+   
+<br></br>
+
+    <table class="general" summary="Avances Resolucion" style="width: 60%" id="tabla2">
+        <thead>
+            <tr>
+                <th colspan="4">AVANCES DE LA RESOLUCION N°<?php echo $this->escape($tituloForm); ?> </th>
+            </tr>
+            <tr>
+                <th>Observaciones</th>
+                <th>Fecha</th>     
+            </tr>    
+
+        <tbody>
+
+            <?php
+            //Fmo_Logger::debug($this->indiceView);
+            $consultaAvances = Application_Model_Avance::getAllAvanceResolucion($this->indiceView);
+            if (!empty($consultaAvances)):
+                foreach ($consultaAvances as $index => $consultaAvances):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo $this->escape($consultaAvances->descripcion); ?></td>
+                        <td align="center"><?php echo $this->escape($consultaAvances->fecha_avance); ?></td>
+                    </tr>
+            <?php
+        endforeach;
+        ;
+    else:
+        ?>
+                <tr>
+                    <td colspan="11" align="center">No tiene Avances</td>
+                </tr>
+            <?php endif; ?>   
+        </tbody>
+    </thead>
+    </table>
+
+    <p align="center"><?php
+            echo $this->form->getElement(Application_Form_Resolucion::E_VOLVER)->renderViewHelper();
+     ?></p>
+
+    <?php
+
+endif;

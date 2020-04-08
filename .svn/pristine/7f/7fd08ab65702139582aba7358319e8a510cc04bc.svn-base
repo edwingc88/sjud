@@ -1,0 +1,37 @@
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header unset Pragma
+    FileETag None
+    Header unset ETag
+
+    # cache images files for 10 days
+    <FilesMatch "\.(ico|jpg|jpeg|png|gif)$">
+        Header set Cache-Control "max-age=864000, public, must-revalidate"
+        Header unset Last-Modified
+    </FilesMatch>
+
+    # cache html/htm/xml/txt files for 2 days
+    <FilesMatch "\.(html|htm|xml|txt|xls|ppt|pps|doc|pdf|odt|ods|odp)$">
+        Header set Cache-Control "max-age=7200, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Sólo para los ambientes de desarrollo
+    <IfModule mod_userdir.c>
+        # SetEnv APPLICATION_ENV "production"
+        # SetEnv APPLICATION_ENV "testing"
+        # SetEnv APPLICATION_ENV "local"
+        # SetEnv APPLICATION_ENV "development"
+        SetEnv ZFCONFIG "/etc/apache2/zfconfig.ini"
+        RewriteBase  "/~rafaelars/sjud/"
+    </IfModule>
+
+    RewriteRule .* index.php
+</IfModule>

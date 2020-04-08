@@ -1,0 +1,80 @@
+<?php
+/*
+ * Vista para el listado de los miembros anteriores de la junta directiva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Miembro):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+<!-- Icono volver a la página principal-->
+<p align="right">
+    <a class=" boton_menu_principal" style="margin-bottom: 0px"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo " Volver al Menú"; ?> </a>
+ </p>   
+
+
+
+
+<br></br>
+    
+    <table class="general" summary="Miembros Actuales Junta Directiva" style="width: 80%;margin-bottom: 4px;" id="tabla1">
+        <caption>Miembros Actuales Junta Directiva</caption>
+        <?php 
+        $fecha_juntaActual =  Application_Model_Miembros::getFechaJunta();
+          ?> 
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Cargo</th>
+                <th>Miembro</th>
+                <th>Fecha</th>            
+                <th>Accion <a href="<?php echo $this->url(array('modulo' => 'default','controller'=>'Miembro', 'action' => 'agregarmiembro','fecha_junta'=> $fecha_juntaActual,'page' => $this->page )); ?>" title="Agregar Miembro a la Junta">
+                                <?php echo $this->img('ico_usuario_agregar.png'); ?></a> </th>  
+            </tr>    
+        </thead>
+        <tbody>  
+           <?php 
+           
+        $consultaMiembros =  Application_Model_Miembros::getJuntaActual();
+            if(!empty($consultaMiembros)):
+               $contador = 0;
+               foreach ($consultaMiembros as $index => $consultaMiembros):
+                
+               ?>
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        
+                        <td align="center"><?php 
+                        //Fmo_Logger::debug($consultaMiembros->id_cargo);
+                        //$consultaCargo = Application_Model_Cargo::getDescriCargo($consultaMiembros->id_cargo);
+                        //Fmo_Logger::debug($consultaCargo);
+                        echo ($consultaMiembros->descripcion); ?></td>
+                        <td align="center"><?php echo $this->escape($consultaMiembros->nombre); ?></td>
+                        <td align="center"><?php 
+                        $fecha_f = new Zend_Date($consultaMiembros->fecha_periodo);
+                        echo $this->escape($fecha_f->toString('dd/MM/yyyy')); ?></td>
+                        
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'editar','ficha'=> $consultaMiembros->ficha, 
+                            'fecha'=> $consultaMiembros->fecha_periodo,
+                            
+                            'page' => $this->page )); ?>" title="Modificar Miembro">
+                                <?php echo $this->img('ico_editar.png'); ?></a></td>
+                    </tr>
+                <?php 
+                endforeach; else: ?>  
+                <tr>
+                    <td colspan="5" align="center">No se encontro ninguna Junta</td>
+                </tr>
+               <?php endif;?> 
+               
+        </tbody>
+    </table>
+
+
+
+
+
+<?php
+endif;

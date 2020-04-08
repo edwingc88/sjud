@@ -1,0 +1,128 @@
+<?php
+
+/*
+ * Vista para el registro de cargos de la junta direciva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Cargo):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+ 
+   <!--Icono volver a la página principal-->
+   
+    
+   
+ <p align="right">
+    <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Volver al Menú"; ?> </a>
+</p>
+   
+    <table class="general" summary="Agregar Nuevo Cargo" style="width: 60%" id="tabla1">
+        <caption>Agregar Nuevo Cargo</caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Cargo::E_NOMBRE,$this->nombreView)
+                         ->getElement(Application_Form_Cargo::E_NOMBRE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Cargo::E_NIVEL)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Cargo::E_NIVEL,$this->nivelView)
+                         ->getElement(Application_Form_Cargo::E_NIVEL)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Cargo::E_NIVEL)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+       
+    </table>
+
+
+
+    <!--<p align="center"><?php
+        echo $this->form->getElement(Application_Form_Cargo::E_GUARDAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Cargo::E_CANCELAR)->renderViewHelper();
+        ?></p>-->
+    
+    
+    <div align="center">
+        <p class="p_boton"><?php
+        //echo $this->form->getElement(Application_Form_Miembro::E_BUSCAR)->renderViewHelper();
+            echo $this->form->getElement(Application_Form_Cargo::E_GUARDAR)->renderViewHelper();
+                    
+        //echo $this->form->getElement(Application_Form_Miembro::E_CANCELAR)->renderViewHelper();
+         
+        ?>
+      
+        </p >
+        <!-- EDWIN-->
+        <p class="p_boton">
+           <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "  Cancelar  "; ?> </a>
+       </p> 
+    </div>
+    
+    
+    
+    <table id="ListadoCargos" class="general" summary="Listado de Cargos" style="width: 80%">
+        <caption>Listado de Cargos</caption>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nombre Cargo</th>
+                <th>Nivel Cargo</th>
+                <th>Editar</th>        
+            </tr>    
+        </thead>
+        <tbody>
+            <?php
+                if ($this->data instanceof Zend_Paginator && $this->data->count()):
+                $contador = 0;
+                foreach ($this->data as $index => $cargosconsulta):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($cargosconsulta->descripcion); ?></td>
+                        <td align="center"><?php echo $this->escape($cargosconsulta->nivel_cargo); ?></td>
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'editar', 'id_cargo' => $cargosconsulta->id,
+                            'page' => $this->page )); ?>" title="Editar Datos Cargos">
+                                <?php echo $this->img('ico_editar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="4" align="center">No se encontraron Cargos</td>
+                </tr>
+            <?php endif; ?>   
+        </tbody>
+    </table>
+     <?php
+    if ($this->data instanceof Zend_Paginator):
+        echo $this->paginationControl($this->data);
+    endif;
+    ?>
+
+<?php
+endif;

@@ -1,0 +1,123 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+    <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+    
+    <table class="general" summary="Busqueda de Resolucion" style="width: 60%" id="tabla1">
+        <caption>BÚSQUEDA DE RESOLUCIÓN</caption>
+    </table>
+    
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 30%" id="tabla2">
+        
+        <?php  ?>
+      <tr>
+            <th style="width: 6%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                  <?php
+                      echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION,$this->idView)
+                           ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderViewHelper(),
+                           $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderErrors();
+                      echo '/';
+                      echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION1,$this->id1View)
+                           ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderViewHelper(),
+                           $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderErrors();
+                      echo '/';
+                      echo $this->form->setDefault(Application_Form_Resolucion::E_AÑO,$this->añoView)
+                           ->getElement(Application_Form_Resolucion::E_AÑO)->renderViewHelper(),
+                           $this->form->getElement(Application_Form_Resolucion::E_AÑO)->renderErrors();
+
+                      ?> 
+              </td>
+        </tr>
+        
+       
+         <?php  ?>
+        
+        
+    </table> 
+    
+    
+ <p align="center">
+ <?php   echo $this->form->getElement(Application_Form_Resolucion::E_BUSCAR)->renderViewHelper(),
+              $this->form->getElement(Application_Form_Resolucion::E_CANCELAR)->renderViewHelper();
+        ?></p>
+  <?php
+  
+    if($this->resolucionesView ):?>
+ <table class="general" summary="Resolucion" style="width: 90%" id="tabla3">
+<caption>Resolución <?php echo $this->escape($this->idView.'/'.$this->id1View.'/'.$this->añoView);?> </caption>
+ <thead>
+        <tr>
+                <th width="3%">N°</th>
+                <th width="11%">Num Resolución</th>
+                <th width="10%">Num Reunión</th>                
+                <th width="10%">Fecha Reunión</th>                             
+                <th width="20%">Gcia.Gral./Coord.</th>                                         
+                <th width="33">Descripción</th> 
+                <th width="5%">Adjuntos</th>
+                <th width="3%">Mod</th>   
+        </tr>    
+        </thead>
+        <tbody>
+            <?php
+            $consultaResolucion = Application_Model_Resolucion::getDatosResolucion($this->idView.$this->id1View.$this->añoView);
+            
+            if(!empty ($consultaResolucion)):
+                //Fmo_Logger::debug($consultaResolucion);
+                $contador = 0;
+                foreach ($consultaResolucion as $index => $consultaResolucion):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($this->idView.'/'.$this->id1View.'/'.$this->añoView); ?></td>
+                        <td align="center"><?php 
+                        //$reunion = Application_Model_Reunion::getReunion($consultaResolucion->id_reunion);
+       
+                        echo $this->escape($consultaResolucion->id_reu); ?></td>
+                        <td align="center"><?php echo $this->escape($consultaResolucion->fecha_creacion); ?></td>
+                        <td align="center"><?php 
+                        //$gerencia = Application_Model_GerenciaGeneralCoordinacion::getDescriGerencia($consultaResolucion->id_gga);
+                        //Fmo_Logger::debug($gerencia);
+                        echo $this->escape($consultaResolucion->gga_nombre); ?></td>
+                        
+                        <td align="justify"><?php echo $this->escape($consultaResolucion->observacion); ?></td>
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'adjunto', 'id' => $this->idView,'id1' => $this->id1View,
+                            'anio' => $this->añoView)); ?>" title="Adjuntos">
+                                <?php echo $this->img('ico_archivo_pdf.png'); ?></a></td> 
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'editar',  'id' => $this->idView,'id1' => $this->id1View,
+                             'anio' => $this->añoView,'indice'=> $consultaResolucion->indice )); ?>" title="Editar Resolucion">
+                                <?php //Fmo_Logger::debug($this->page);
+                                echo $this->img('ico_editar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+                
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="11" align="center">No se encontro resolucion</td>
+                </tr>
+            <?php endif; ?>   
+        </tbody>
+    </table>
+  <?php endif; ?>  
+
+      
+<?php
+
+endif;

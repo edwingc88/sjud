@@ -1,0 +1,120 @@
+<?php
+/*
+ * Vista para el registro de los estados de los documentos.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_Estado):
+    $tituloForm = $this->form->getLegend();   
+    echo $this->form->renderForm(false);
+    ?>
+
+<!--Icono volver a la página principal-->
+   <p align="right">
+   <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+   </p> 
+
+    <table class="general" summary="Agregar Nuevo Estado" style="width: 70%" id="tabla1">
+        <caption>AGREGAR NUEVO ESTADO</caption>
+    </table>
+
+    <br></br>
+
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                echo $this->form->setDefault(Application_Form_Estado::E_NOMBRE, $this->nombreView)
+                        ->getElement(Application_Form_Estado::E_NOMBRE)->renderViewHelper(),
+                $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderErrors();
+                ?>    
+            </td>
+
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Estado::E_COLOR)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                echo $this->form->setDefault(Application_Form_Estado::E_COLOR, $this->idColorView)
+                        ->getElement(Application_Form_Estado::E_COLOR)->renderViewHelper(),
+                $this->form->getElement(Application_Form_Estado::E_COLOR)->renderErrors();
+                ?>
+
+
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+            <?php echo $this->form->getElement(Application_Form_Estado::E_TIPO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+            <?php
+            echo $this->form->setDefault(Application_Form_Estado::E_TIPO, $this->tipoDocumentoView)
+                    ->getElement(Application_Form_Estado::E_TIPO)->renderViewHelper(),
+            $this->form->getElement(Application_Form_Estado::E_TIPO)->renderErrors();
+            ?> 
+            </td>
+
+        </tr>
+    </table> 
+
+    <p align="center"><?php
+            echo $this->form->getElement(Application_Form_Estado::E_GUARDAR)->renderViewHelper(),
+            $this->form->getElement(Application_Form_Estado::E_CANCELAR)->renderViewHelper();
+    ?></p>
+
+    <table id="listadoEstados" class="general" summary="Listado de Estados" style="width: 60%">
+        <caption>Listado de Estados</caption>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Tipo Documento</th>
+                <th>Nombre</th>
+               <!--22-01-2020 AB <th>Color</th>-->
+                <th>Editar</th>        
+            </tr>    
+        </thead>
+        <tbody>
+    <?php
+    $contador = 0;
+    if ($this->data instanceof Zend_Paginator && $this->data->count()):
+        foreach ($this->data as $consultaestados):
+            ?>
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber(++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($consultaestados->tipo_documento); ?></td>
+                        <td align="center"><?php echo $this->escape($consultaestados->descripcion); ?></td>
+                       <!-- 22-01-2020 AB <td align="center"><?php echo $this->img($this->stringToLower($consultaestados->ruta1.'.png')); ?></td>-->
+                        <td align="center">
+                            <a href="<?php echo $this->url(array('action' => 'editar', 'id_estado' => $consultaestados->id,
+                'tipo' => $consultaestados->tipo_documento, 'page' => $this->page));
+            ?>" title="Editar Datos Estados">
+                               <?php echo $this->img('ico_editar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+            else:
+                ?>
+                <tr>
+                    <td align="center" colspan="5">La consulta no devolvió registros.</td>
+                </tr>
+            <?php
+            endif;
+            ?>
+        </tbody>
+    </table>
+    <?php
+    if ($this->data instanceof Zend_Paginator):
+        echo $this->paginationControl($this->data);
+    endif;
+    ?>            
+
+    <?php
+
+endif;

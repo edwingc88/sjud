@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<database name="db_fmowebzf" schema="sch_zfbase" type="PostgreSQL - 9.1.11">
+   <tables>
+      <table name="accion" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <parent column="id_periodo" foreignKey="accion_id_periodo_fkey" implied="false" onDeleteCascade="false" table="proyecto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_proyecto" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_proyecto" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <parent column="id_proyecto" foreignKey="accion_id_periodo_fkey" implied="false" onDeleteCascade="false" table="proyecto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="id_accion" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_accion" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="descripcion" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_proyecto" sequenceNumberInPK="2"/>
+         <primaryKey column="id_accion" sequenceNumberInPK="3"/>
+         <index name="accion_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_proyecto"/>
+            <column ascending="true" name="id_accion"/>
+         </index>
+      </table>
+      <table name="centro_costo" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="gerencia_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia"/>
+            <child column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey1" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <parent column="id" foreignKey="centro_costo_id_periodo_fkey" implied="false" onDeleteCascade="false" table="periodo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_centro_costo" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_centro_costo" foreignKey="gerencia_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia"/>
+            <child column="id_centro_costo" foreignKey="presupuesto_gasto_id_periodo_fkey1" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_centro_costo" sequenceNumberInPK="2"/>
+         <index name="centro_costo_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_centro_costo"/>
+         </index>
+      </table>
+      <table name="gasto" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <parent column="id" foreignKey="gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="periodo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_gasto" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_gasto" foreignKey="presupuesto_gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="descripcion" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_gasto" sequenceNumberInPK="2"/>
+         <index name="gasto_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_gasto"/>
+         </index>
+      </table>
+      <table name="gerencia" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia_general"/>
+            <parent column="id_periodo" foreignKey="gerencia_id_periodo_fkey" implied="false" onDeleteCascade="false" table="centro_costo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_centro_costo" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_centro_costo" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia_general"/>
+            <parent column="id_centro_costo" foreignKey="gerencia_id_periodo_fkey" implied="false" onDeleteCascade="false" table="centro_costo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="id_gerencia" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_gerencia" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia_general"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_centro_costo" sequenceNumberInPK="2"/>
+         <primaryKey column="id_gerencia" sequenceNumberInPK="3"/>
+         <index name="gerencia_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_centro_costo"/>
+            <column ascending="true" name="id_gerencia"/>
+         </index>
+      </table>
+      <table name="gerencia_general" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <parent column="id_periodo" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_centro_costo" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_centro_costo" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="id_gerencia" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_gerencia" foreignKey="gerencia_general_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gerencia"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="id_gerencia_general" nullable="false" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_centro_costo" sequenceNumberInPK="2"/>
+         <primaryKey column="id_gerencia" sequenceNumberInPK="3"/>
+         <primaryKey column="id_gerencia_general" sequenceNumberInPK="4"/>
+         <index name="gerencia_general_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_centro_costo"/>
+            <column ascending="true" name="id_gerencia"/>
+            <column ascending="true" name="id_gerencia_general"/>
+         </index>
+      </table>
+      <table name="moneda" numRows="3" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="3" type="bpchar">
+            <child column="id_moneda" foreignKey="presupuesto_gasto_id_moneda_fkey" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <child column="id_moneda_a" foreignKey="tasa_id_moneda_a_fkey" implied="false" onDeleteCascade="false" table="tasa"/>
+            <child column="id_moneda_de" foreignKey="tasa_id_moneda_de_fkey" implied="false" onDeleteCascade="false" table="tasa"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="simbolo" nullable="false" remarks="" size="5" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="moneda_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="partida" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="partida_categoria_id_periodo_fkey" implied="false" onDeleteCascade="false" table="partida_categoria"/>
+            <child column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey2" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+            <parent column="id" foreignKey="partida_id_periodo_fkey" implied="false" onDeleteCascade="false" table="periodo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_partida" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_partida" foreignKey="partida_categoria_id_periodo_fkey" implied="false" onDeleteCascade="false" table="partida_categoria"/>
+            <child column="id_partida" foreignKey="presupuesto_gasto_id_periodo_fkey2" implied="false" onDeleteCascade="false" table="presupuesto_gasto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="descripcion" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_partida" sequenceNumberInPK="2"/>
+         <index name="partida_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_partida"/>
+         </index>
+      </table>
+      <table name="partida_categoria" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <parent column="id_periodo" foreignKey="partida_categoria_id_periodo_fkey" implied="false" onDeleteCascade="false" table="partida"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_partida" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_partida" foreignKey="partida_categoria_id_periodo_fkey" implied="false" onDeleteCascade="false" table="partida"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="id_categoria" nullable="false" remarks="" size="16" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="descripcion" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_partida" sequenceNumberInPK="2"/>
+         <primaryKey column="id_categoria" sequenceNumberInPK="3"/>
+         <index name="partida_categoria_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_partida"/>
+            <column ascending="true" name="id_categoria"/>
+         </index>
+      </table>
+      <table name="periodo" numRows="2" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="centro_costo_id_periodo_fkey" implied="false" onDeleteCascade="false" table="centro_costo"/>
+            <child column="id_periodo" foreignKey="gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gasto"/>
+            <child column="id_periodo" foreignKey="partida_id_periodo_fkey" implied="false" onDeleteCascade="false" table="partida"/>
+            <child column="id_periodo" foreignKey="proyecto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="proyecto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="anio" nullable="false" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="2" name="numero" nullable="false" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="3" name="fecha_desde" nullable="false" remarks="" size="13" type="date"/>
+         <column autoUpdated="false" digits="0" id="4" name="fecha_hasta" nullable="false" remarks="" size="13" type="date"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="periodo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="presupuesto_gasto" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <parent column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="accion"/>
+            <parent column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gasto"/>
+            <parent column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey2" implied="false" onDeleteCascade="false" table="partida"/>
+            <parent column="id_periodo" foreignKey="presupuesto_gasto_id_periodo_fkey1" implied="false" onDeleteCascade="false" table="centro_costo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_mes" nullable="false" remarks="" size="5" type="int2"/>
+         <column autoUpdated="false" digits="0" id="2" name="id_gasto" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_gasto" foreignKey="presupuesto_gasto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="gasto"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="3" name="id_centro_costo" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_centro_costo" foreignKey="presupuesto_gasto_id_periodo_fkey1" implied="false" onDeleteCascade="false" table="centro_costo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="4" name="id_partida" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_partida" foreignKey="presupuesto_gasto_id_periodo_fkey2" implied="false" onDeleteCascade="false" table="partida"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="5" name="id_proyecto" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_proyecto" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="accion"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="6" name="id_accion" nullable="false" remarks="" size="16" type="varchar">
+            <parent column="id_accion" foreignKey="presupuesto_gasto_id_periodo_fkey3" implied="false" onDeleteCascade="false" table="accion"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="7" name="id_moneda" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="id" foreignKey="presupuesto_gasto_id_moneda_fkey" implied="false" onDeleteCascade="false" table="moneda"/>
+         </column>
+         <column autoUpdated="false" defaultValue="0" digits="2" id="8" name="monto" nullable="false" remarks="" size="20" type="numeric"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_mes" sequenceNumberInPK="2"/>
+         <primaryKey column="id_gasto" sequenceNumberInPK="3"/>
+         <primaryKey column="id_centro_costo" sequenceNumberInPK="4"/>
+         <primaryKey column="id_partida" sequenceNumberInPK="5"/>
+         <index name="presupuesto_gasto_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_mes"/>
+            <column ascending="true" name="id_gasto"/>
+            <column ascending="true" name="id_centro_costo"/>
+            <column ascending="true" name="id_partida"/>
+         </index>
+      </table>
+      <table name="proyecto" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_periodo" nullable="false" remarks="" size="6" type="bpchar">
+            <child column="id_periodo" foreignKey="accion_id_periodo_fkey" implied="false" onDeleteCascade="false" table="accion"/>
+            <parent column="id" foreignKey="proyecto_id_periodo_fkey" implied="false" onDeleteCascade="false" table="periodo"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_proyecto" nullable="false" remarks="" size="16" type="varchar">
+            <child column="id_proyecto" foreignKey="accion_id_periodo_fkey" implied="false" onDeleteCascade="false" table="accion"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="nombre" nullable="false" remarks="" size="64" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="descripcion" nullable="false" remarks="" size="2147483647" type="text"/>
+         <primaryKey column="id_periodo" sequenceNumberInPK="1"/>
+         <primaryKey column="id_proyecto" sequenceNumberInPK="2"/>
+         <index name="proyecto_pkey" unique="true">
+            <column ascending="true" name="id_periodo"/>
+            <column ascending="true" name="id_proyecto"/>
+         </index>
+      </table>
+      <table name="tasa" numRows="0" remarks="" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('tasa_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial">
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="zf_notificacion"/>
+            <child column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="zf_registro"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_moneda_de" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="id" foreignKey="tasa_id_moneda_de_fkey" implied="false" onDeleteCascade="false" table="moneda"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="2" name="id_moneda_a" nullable="false" remarks="" size="3" type="bpchar">
+            <parent column="id" foreignKey="tasa_id_moneda_a_fkey" implied="false" onDeleteCascade="false" table="moneda"/>
+         </column>
+         <column autoUpdated="false" defaultValue="1" digits="8" id="3" name="valor" nullable="false" remarks="" size="8" type="float4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="tasa_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_archivo" numRows="0" remarks="Almacena las archivos del sistema en la Base de Datos" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria" size="13" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del archivo" size="255" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="directorio" nullable="false" remarks="Directorio del archivo" size="1024" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="descripcion" nullable="false" remarks="Descripción del archivo" size="512" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="4" name="tamanio" nullable="false" remarks="Tamaño del archivo en bytes" size="10" type="int4"/>
+         <column autoUpdated="false" digits="0" id="5" name="contenido" nullable="false" remarks="Contenido del archivo" size="2147483647" type="bytea"/>
+         <column autoUpdated="false" digits="0" id="6" name="suma_comprobacion" nullable="false" remarks="Suma de comprobación del archivo en MD5" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="7" name="tipo_mime" nullable="false" remarks="Tipo MIME del archivo" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="8" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_archivo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_notificacion" numRows="277" remarks="Almacena las notificaciones para los usuarios." schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('zf_notificacion_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria de la notificación." size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="tasa"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="tipo" nullable="false" remarks="Tipo de notificación: (W)arning, (E)rror, (I)nformation, y (S)uccessful." size="1" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="para" nullable="false" remarks="CI N° del destinatario." size="20" type="numeric"/>
+         <column autoUpdated="false" digits="0" id="3" name="de" nullable="false" remarks="Nombre del usuario, módulo, sistema que envía la notificación." size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="mensaje" nullable="false" remarks="Mensaje de la notificación." size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="5" name="es_mensaje_html" nullable="false" remarks="Indica si el mensaje está en formato HTML o texto." size="1" type="bool"/>
+         <column autoUpdated="false" digits="6" id="6" name="fecha_leido" nullable="true" remarks="Fecha y hora de lectura de la notificación, sí es nulo no ha sido leído." size="29" type="timestamp"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="7" name="fecha_registro" nullable="false" remarks="Fecha y hora del registro." size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_notificacion_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_registro" numRows="2033" remarks="Contiene la información de auditoría del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('zf_registro_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria de esta tabla" size="10" type="serial">
+            <parent column="id" foreignKey="Implied Constraint" implied="true" onDeleteCascade="false" table="tasa"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_transaccion" nullable="true" remarks="Id o código de la transacción" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="operacion" nullable="true" remarks="Tipo de operación realizada CREATE/INSERT, DELETE o UPDATE" size="6" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="usuario" nullable="true" remarks="Siglado o cuenta del usuario" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="4" name="ip_cliente" nullable="true" remarks="Dirección IP del cliente" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="5" name="agente_cliente" nullable="true" remarks="Información del agente utilizado" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="6" name="tabla_esquema" nullable="true" remarks="Nombre del esquema de la tabla" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="7" name="tabla_nombre" nullable="true" remarks="Nombre de la tabla" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="8" name="tabla_clave_primaria" nullable="true" remarks="Nombre de la clave primaria de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="9" name="tabla_clave_primaria_valor" nullable="true" remarks="Valor de la clave primaria de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="10" name="tabla_campo" nullable="true" remarks="Nombre del campo en la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="11" name="tabla_valor_viejo" nullable="true" remarks="Valor anterior o viejo en el campo de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" digits="0" id="12" name="tabla_valor_nuevo" nullable="true" remarks="Valor nuevo en el campo de la tabla modificada" size="2147483647" type="text"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="13" name="fecha_hora" nullable="false" remarks="Fecha de la transacción" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_registro_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_estatus" numRows="4" remarks="Contiene los estados de los recursos" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria" size="1" type="bpchar">
+            <child column="id_estatus" foreignKey="zf_seguridad_recurso_id_estatus_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del estatus" size="50" type="varchar"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_estatus_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo" numRows="4" remarks="Contiene los grupos del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria del grupo, también funciona como rango del grupo" size="10" type="int4">
+            <child column="id_grupo" foreignKey="zf_seguridad_grupo_recurso_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_recurso"/>
+            <child column="id_grupo" foreignKey="zf_seguridad_grupo_usuario_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="nombre" nullable="false" remarks="Nombre del grupo" size="255" type="varchar"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_grupo_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="zf_seguridad_grupo_nombre_key" unique="true">
+            <column ascending="true" name="nombre"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo_recurso" numRows="11" remarks="Contiene los grupos y recursos del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_recurso" nullable="false" remarks="Clave compuesta y foránea con el recurso" size="1024" type="varchar">
+            <parent column="id" foreignKey="zf_seguridad_grupo_recurso_id_recurso_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_grupo" nullable="false" remarks="Clave compuesta y foránea con el grupo" size="10" type="int4">
+            <parent column="id" foreignKey="zf_seguridad_grupo_recurso_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id_recurso" sequenceNumberInPK="1"/>
+         <primaryKey column="id_grupo" sequenceNumberInPK="2"/>
+         <index name="zf_seguridad_grupo_recurso_pkey" unique="true">
+            <column ascending="true" name="id_recurso"/>
+            <column ascending="true" name="id_grupo"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_grupo_usuario" numRows="6" remarks="Contiene los grupos y usuarios del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id_usuario" nullable="false" remarks="Clave compuesta y foránea con el usuario" size="20" type="numeric">
+            <parent column="id" foreignKey="zf_seguridad_grupo_usuario_id_usuario_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_grupo" nullable="false" remarks="Clave compuesta y foránea con el grupo" size="10" type="int4">
+            <parent column="id" foreignKey="zf_seguridad_grupo_usuario_id_grupo_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id_usuario" sequenceNumberInPK="1"/>
+         <primaryKey column="id_grupo" sequenceNumberInPK="2"/>
+         <index name="zf_seguridad_grupo_usuario_pkey" unique="true">
+            <column ascending="true" name="id_usuario"/>
+            <column ascending="true" name="id_grupo"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_recurso" numRows="11" remarks="Contiene los recursos del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria del recurso, es una cadena que concatena: modulo/controlador/acción" size="1024" type="varchar">
+            <child column="id_recurso" foreignKey="zf_seguridad_grupo_recurso_id_recurso_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_recurso"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="id_estatus" nullable="false" remarks="Estatus del recurso: Activo, Denegado, Mantenimiento o Contrucción" size="1" type="bpchar">
+            <parent column="id" foreignKey="zf_seguridad_recurso_id_estatus_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_estatus"/>
+         </column>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="2" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_recurso_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="zf_seguridad_usuario" numRows="46" remarks="Contiene los usuarios del sistema" schema="sch_zfbase" type="TABLE">
+         <column autoUpdated="false" digits="0" id="0" name="id" nullable="false" remarks="Clave primaria y CI del usuario" size="20" type="numeric">
+            <child column="id_usuario" foreignKey="zf_seguridad_grupo_usuario_id_usuario_fkey" implied="false" onDeleteCascade="false" table="zf_seguridad_grupo_usuario"/>
+         </column>
+         <column autoUpdated="false" digits="0" id="1" name="clave" nullable="false" remarks="Contraseña del usuario" size="32" type="bpchar"/>
+         <column autoUpdated="false" digits="0" id="2" name="siglado" nullable="false" remarks="Contraseña del usuario" size="32" type="varchar"/>
+         <column autoUpdated="false" digits="0" id="3" name="caducidad" nullable="true" remarks="Indica la fecha de caducidad de la contraseña" size="13" type="date"/>
+         <column autoUpdated="false" defaultValue="('now'::text)::timestamp without time zone" digits="6" id="4" name="fecha_hora" nullable="false" remarks="Fecha y hora del registro" size="29" type="timestamp"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="zf_seguridad_usuario_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+   </tables>
+</database>

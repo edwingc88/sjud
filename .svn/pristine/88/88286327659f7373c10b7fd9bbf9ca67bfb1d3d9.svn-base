@@ -1,0 +1,100 @@
+<?php
+
+/*
+ * Vista para eliminar el registro de un acto protocolar.
+ * 
+ * @author Kevin Flores <kevinf@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    if($this->tipoView != 'adjunto'):
+?>
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+   
+    <table class="general" summary="ELIMINAR RELACION RESOLUCION" style="width: 80%" id="tabla1">
+        <caption>ELIMINAR RELACION RESOLUCIÓN</caption>
+    </table>
+
+  
+
+    <table class="general" summary="Datos de la resolucion a eliminar" style="width: 65%" id="tabla4">
+                
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Descripcion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $consultaResolucion = Application_Model_Resolucion::getResolucionIndice($this->indicebView);
+                if(!empty ($consultaResolucion)):                    
+                     ?>        
+                    <tr>
+                        <td align="center"><?php echo $this->escape($consultaResolucion->id1 . '/' .$consultaResolucion->id2 . '/' . $consultaResolucion->anio); ?> </td>
+                           <td align="center"><?php echo $this->escape($consultaResolucion->observacion); ?></td>
+                        
+                    </tr>
+                    <?php
+                    endif; ?>
+                    
+                </tbody>
+    </table>
+
+<p align="center">
+   <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Resolucion', 'action' => 'eliminar', 'confirmar' => 'N', 'indice_relacion' => $this->idRelacionView, 'indice' => $this->indiceView,
+                            'anio' => $this->anioView,'tipo' => 'relacion'), null, true); ?>">Volver</a>
+   <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Resolucion', 'action' => 'eliminar', 'confirmar' => 'S', 'indice_relacion' => $this->idRelacionView,'indice' => $this->indiceView,
+                            'anio' => $this->anioView,'tipo' => 'relacion'), null, true); ?>"><?php echo $this->img('ico_eliminar.png'); ?> Eliminar</a>
+            
+</p>
+<?php
+
+;else:
+    ?>
+<table class="general" summary="ELIMINAR ADJUNTO RESOLUCION" style="width: 80%" id="tabla1">
+        <caption>ELIMINAR ADJUNTO RESOLUCIÓN</caption>
+    </table>
+
+    <br>
+
+    <table class="general" summary="Datos del Acto" style="width: 65%" id="tabla4">
+                <thead>
+                    <tr>
+                        <th width="2%">Id</th>
+                        <th width="40%" >Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if($this->idAdjuntoView != null && $this->nombreView != null):
+                    
+                            ?>
+                            <tr>
+                                <td align="center"><?php echo $this->escape($this->idAdjuntoView); ?></td>
+                                <td align="center"><?php echo $this->escape($this->nombreView); ?></td>
+                                </tr>
+                     <?php
+                     endif;
+                     ?>
+                </tbody>
+    </table>
+
+<p align="center">
+    <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Resolucion', 'action' => 'eliminar', 'confirmar' => 'N', 'id_adjunto' => $this->idAdjuntoView, 'id' => $this->id1View,'id1' => $this->id2View,
+                            'anio' => $this->anioView,'tipo' => 'adjunto'), null, true); ?>">Volver</a>
+    <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Resolucion', 'action' => 'eliminar', 'confirmar' => 'S', 'id_adjunto' => $this->idAdjuntoView,'id' => $this->id1View,'id1' => $this->id2View,
+                            'anio' => $this->anioView,'tipo' => 'adjunto'), null, true); ?>"><?php echo $this->img('ico_eliminar.png'); ?> Eliminar</a>
+</p>
+    
+    
+  <?php  
+
+endif;?> 
+       
+<?php
+endif;

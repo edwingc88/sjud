@@ -1,0 +1,154 @@
+<!--Icono volver a la página principal-->
+   <p align="right">
+   <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+   </p> 
+
+<center><h2 class="box-header">	Modificar Gerencias Generales/Coordinacion  </h2></center>
+<form>
+    <table class="general" summary="Detalle" style ="width: 40%"> 
+            
+      </table>   
+</form>        
+  
+<?php
+// echo $this->form->render();
+ if ($this->form instanceof Application_Form_Nueva):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);  
+    $tpgcia = $this->form->getElement(Application_Form_Nueva::E_TPGCIA)->getValue();
+      if ($this->form->getElement(Application_Form_Nueva::E_TPGCIA)!=$this->form->getElement(Application_Form_Nueva::E_TIPOGCIA) ){
+         $tpgcia= $this->form->getElement(Application_Form_Nueva::E_TIPOGCIA)->getValue();
+         $this->form->setDefault(Application_Form_Nueva::E_TPGCIA, $tpgcia); 
+       }  
+?> 
+<table class="general" style="width:60%; height: 80%" align="center" >
+    <th>   
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 100%;" id="tabla2">
+        
+        <tr>
+            <th align="center"> 
+                <?php 
+                echo $this->form->getElement(Application_Form_Nueva::E_TPGCIA)->getLabel(); 
+                ?>
+            </th>
+            <td align="left" colspan="3" style="color:black">
+                <?php       
+                echo $this->form->getElement(Application_Form_Nueva::E_TPGCIA)->getLabel();  
+                echo $this->form->getElement(Application_Form_Nueva::E_TPGCIA)->renderViewHelper(); 
+                echo $this->form->getElement(Application_Form_Nueva::E_TIPOGCIA)->renderViewHelper();
+                echo $this->form->getElement(Application_Form_Nueva::E_TIPOGCIA)->renderErrors(); 
+                ?>
+            </td>
+        </tr>
+         
+        <tr> 
+            <th style="width: 20%" >                
+             <?php      
+              
+            if ($tpgcia=='1'){
+                echo $this->form->getElement(Application_Form_Nueva::E_GCIAGRAL)->getLabel(); 
+             } 
+                 else{
+                 if ($tpgcia=='2'){   
+                  echo $this->form->getElement(Application_Form_Nueva::E_COORD)->getLabel(); 
+              }
+              } 
+                  
+             ?>
+            </th>
+            <td style="width: 80%;height: 50%;color:black">
+                <?php    
+               if ($tpgcia== '1'){                    
+                echo $this->form->getElement(Application_Form_Nueva::E_GCIAGRAL)->renderViewHelper(),
+                     $this->form->getElement(Application_Form_Nueva::E_GCIAGRAL)->renderErrors(); 
+                } else{
+                  if ($tpgcia=='2'){  
+                   echo $this->form->getElement(Application_Form_Nueva::E_COORD)->renderViewHelper(),
+                       $this->form->getElement(Application_Form_Nueva::E_COORD)->renderErrors();    
+                 }
+                }
+                ?>   
+            </td>   
+             <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Nueva::E_SIGLAS)->getLabel(); ?>
+            </th>
+             <td style="width: 80%;height: 50%"> 
+                <?php
+                    //echo $this->form->setDefault(Application_Form_Nueva::E_SIGLAS,$this->gerenciaView)
+                     echo $this->form->getElement(Application_Form_Nueva::E_SIGLAS)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Nueva::E_SIGLAS)->renderErrors();
+                ?>  
+                      
+            </td>   
+           
+        </tr>
+        <th style="width: 20%">
+           <?php echo $this->form->getElement(Application_Form_Nueva::E_RESPONSABLE)->getLabel(); ?>
+        </th>
+        <td style="width: 80%;height: 50%" align="left"> 
+          <?php
+            echo $this->form->getElement(Application_Form_Nueva::E_RESPONSABLE)->renderViewHelper(),
+                 $this->form->getElement(Application_Form_Nueva::E_BUSCAR)->renderViewHelper(),
+                 $this->form->getElement(Application_Form_Nueva::E_RESPONSABLE)->renderErrors();
+          ?>  
+        </td>  
+        <th style="width: 20%">
+           <?php echo $this->form->getElement(Application_Form_Nueva::E_NOMBRE)->getLabel(); 
+            echo $this->form->getElement(Application_Form_Nueva::E_CEDBUS)->renderViewHelper(),
+                 $this->form->getElement(Application_Form_Nueva::E_CEDBUS)->renderErrors();
+            ?>
+        </th>
+       <td style="width: 80%;height: 50%; color: black"> 
+            <?php  
+              echo $this->form->getElement(Application_Form_Nueva::E_NOMBRE)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_NOMBRE)->renderErrors();
+              echo $this->form->getElement(Application_Form_Nueva::E_NOMBRE_HIDDEN)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_NOMBRE_HIDDEN)->renderErrors();
+              echo $this->form->getElement(Application_Form_Nueva::E_CEDULA)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_CEDULA)->renderErrors(); 
+              echo $this->form->getElement(Application_Form_Nueva::E_NOMBRE_HIDDEN)->renderErrors();
+              
+            ?>             
+        </td>   
+      <tr>
+        <th style="width: 20%">
+           <?php echo $this->form->getElement(Application_Form_Nueva::E_FICHASUPLENTE)->getLabel(); ?>
+        </th>
+        <td style="width:100%;height: 100%" align="left"> 
+          <?php
+            echo $this->form->getElement(Application_Form_Nueva::E_FICHASUPLENTE)->renderViewHelper(),
+                 $this->form->getElement(Application_Form_Nueva::E_BUSCASUPLE)->renderViewHelper(),
+                 $this->form->getElement(Application_Form_Nueva::E_FICHASUPLENTE)->renderErrors();
+          ?>  
+        </td>  
+         <th style="width: 100%">
+           <?php echo $this->form->getElement(Application_Form_Nueva::E_NOMBSUPLENTE)->getLabel(); ?>
+        </th>
+        <td style="width: 80%;height: 50% ;color: #000000"> 
+            <?php  
+              echo $this->form->getElement(Application_Form_Nueva::E_NOMBSUPLENTE)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_NOMBSUPLENTE)->renderErrors();
+               echo $this->form->getElement(Application_Form_Nueva::E_NOMBSUP_HIDDEN)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_NOMBSUP_HIDDEN)->renderErrors();
+              echo $this->form->getElement(Application_Form_Nueva::E_CEDSUPLENTE)->renderViewHelper(),
+                   $this->form->getElement(Application_Form_Nueva::E_CEDSUPLENTE)->renderErrors();;
+            ?>             
+        </td>
+        </tr>
+    <table bgcolor="#FFFFFF"style="width:100%;height: 10%" > 
+     <tr style="width:50%;height: 50%"><td> 
+       <?php
+         echo $this->form->getElement(Application_Form_Nueva::E_GUARDAR)->renderViewHelper(); 
+        echo $this->form->getElement(Application_Form_Nueva::E_VOLVER)->renderViewHelper();
+        ?> 
+      </td></tr>
+     </table>           
+        
+    
+   </th> 
+  </table> 
+        
+<?php
+ endif;
+ 
+ 

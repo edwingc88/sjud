@@ -1,0 +1,124 @@
+<?php
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    ?>
+ <!--Para especificar el set de caracteres de la vista, de modo que a la hora
+    de generar el documento excel, las palabras mantengan sus acentos y eñes. -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+  
+ <?php   if ($this->mostrarView != null && $this->generarExcel == null ):
+        ?>
+   
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> 
+  
+<br></br>
+<table class="general" summary="Listado de Resoluciones" style="width: 80%" id="tabla1" >
+            <thead>
+                <tr>
+                    <th colspan="5">Listado de Resoluciones sin avance en el mes actual</th>
+                </tr>
+                <tr>
+                    <th width="1%">N° Resol. </th>   
+                    <th width="20%">Descripción Resolución </th>                                   
+                    <th width="15%">Gerencia </th> 
+                    <th width="10%">Fecha Registro </th>  
+                    <th width="10%">Ultimo Avance </th>       
+                </tr>    
+            </thead>
+            <tbody>
+                <?php
+                if (($this->data ) && $this->data->count()):
+                    foreach ($this->data as $consultaResoluciones):
+            ?>        
+                        <tr>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->id1 . '/' .$consultaResoluciones->id2 . '/' . $consultaResoluciones->anio); ?> </td>
+                            <td align="justify"><?php echo $this->escape($consultaResoluciones->observacion); ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->gga_nombre); ?> </td>
+                            
+                            <td align="center"><?php
+                                echo $this->escape($consultaResoluciones->fecha_creacion_);
+                                ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->fecha_avance); ?> </td>
+                            
+                            
+
+                        </tr>
+                        <?php
+                    endforeach;
+                    ;
+                else:
+                    ?>
+                    <tr>
+                        <td colspan="5" align="center">No se encontraron resoluciones</td>
+                    </tr>
+        <?php endif;
+        ?>   
+            </tbody>
+        </table>
+ <center>
+<p align="center"><?php
+        echo $this->form->getElement(Application_Form_Resolucion::E_PDF)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Resolucion::E_EXCEL)->renderViewHelper();
+        ?></p>
+ <?php endif; ?>
+
+         <!--INICIO de código para la impresión en el documento ".xls"-->
+        <?php
+        if ( $this->generarExcel == true ):
+            ?>
+        
+        <table class="general" summary="Listado de Resoluciones" style="width: 80%" id="tabla1" >
+            <thead>
+                <tr>
+                    <th colspan="5">Listado de Resoluciones sin avance en el mes actual</th>
+                </tr>
+                <tr>
+                    <th>N° Resol. </th>   
+                    <th>Descripción Resolución</th>                                   
+                    <th>Gerencia </th> 
+                    <th>Fecha Registro </th>  
+                    <th>Ultimo Avance </th>       
+                </tr>    
+            </thead>
+            <tbody>
+                <?php
+                if (($this->data)):
+                    foreach ($this->data as $consultaResoluciones):
+
+                         ?>        
+                        <tr>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->id1 . '/' .$consultaResoluciones->id2 . '/' . $consultaResoluciones->anio); ?> </td>
+                            <td align="center" ><?php echo $this->escape($consultaResoluciones->observacion); ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->gga_nombre); ?> </td>
+                            
+                            <td align="center"><?php
+                                echo $this->escape($consultaResoluciones->fecha_creacion_);
+                                ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->fecha_real_); ?> </td>
+                        </tr>
+                        <?php
+                    endforeach;
+                    ;
+                else:
+                    ?>
+                    <tr>
+                        <td colspan="11" align="center">No se encontraron resoluciones</td>
+                    </tr>
+        <?php endif; ?>   
+            </tbody>
+        </table>
+          <?php  
+        endif;
+       ?> 
+        <?php
+    endif;
+?>   

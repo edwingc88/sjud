@@ -1,0 +1,24 @@
+<phpunit bootstrap="bootstrap.php" colors="true">
+    <testsuite name="ZF Base Testing">
+        <directory>./</directory>
+    </testsuite>
+    
+    <filter>
+        <whitelist>
+            <directory suffix=".php">../application/</directory>
+            <directory suffix=".php">../library/</directory>
+            <exclude>
+                <directory suffix=".phtml">../application/</directory>
+                <directory>../library/Bvb/</directory>
+                <directory>../library/languages/</directory>
+                <file>../application/Bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+    
+    <logging>
+        <log type="coverage-html" target="./log/report" charset="UTF-8" yui="true" hightlight="true" lowupperbound="50" highlowerbound="80">
+            <log type="testdox" target="./log/testdox.html" />
+        </log>
+    </logging>
+</phpunit>

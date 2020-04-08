@@ -1,0 +1,17 @@
+<?php
+/*
+ * Vista para la agende de reuniones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */  
+echo $this->calendario->getHtml();
+if ($this->hasIdentity): ?>
+<!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    <a class="boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Pagina Principal"; ?> </a>
+    </p>
+ 
+
+<?php
+endif;

@@ -1,0 +1,92 @@
+<?php
+if ($this->form instanceof Application_Form_Miembro):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    
+    
+?>
+
+<!--Icono volver a la página principal-->
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p> 
+
+<br></br>
+
+<?php  $consultaMiembros =  Application_Model_Miembros::getJuntaActual();
+        
+            if(!empty($consultaMiembros)):?>
+<table class="general" summary="Miembros Junta Directiva" style="width: 40%" id="tabla1">
+       <thead>
+       <tr>
+            <th colspan="8">Miembros Junta Directiva</th>
+       </tr>
+       </thead>
+</table>
+                    
+                    <?php
+    endif;
+              
+    ?>
+
+ <div class="accordion" summary="Miembros Junta Directiva" >
+        <?php  $consultaMiembros =  Application_Model_Miembros::getJuntaActual();
+        
+            if(!empty($consultaMiembros)):
+                
+               foreach ($consultaMiembros as $index => $consultaMiembros):  ?>
+        
+        <div style="background-image: url('<?php echo $this->imgPath('fondo_menu.png'); ?>')"> 
+            <h3 >                                      
+                <?php echo $consultaMiembros->nombre ?>
+                
+            </h3>
+        
+        
+            <div class="prueba" >
+
+                <table class="acord" summary="Miembros Junta Directiva">
+                    <tr>
+                        
+                        <td width="80%"  >  
+                            
+                            <a> Cargo </a> <?php echo ($consultaMiembros->descripcion)?> <br> </br> 
+                                                                
+                            <a> Cedula Identidad: </a> <?php  echo ($consultaMiembros->cedula)?> <br> </br> 
+                               
+                            <a> Ficha: </a><?php  echo ($consultaMiembros->ficha)?> <br>  </br>
+                                
+                            <a> Antiguedad: </a> <?php $persona =  Fmo_Model_Personal::findOneByCedula($consultaMiembros->cedula);
+                  
+                  echo $persona->{Fmo_Model_Personal::ANTIGUEDAD};?> <br> </br>
+                                
+                            
+                        </td>
+
+                        <td align="right"  >
+                            <?php echo $this->img('ico_usuario_grupo.png'); ?>   
+                        </td>
+
+
+
+                    </tr>
+
+                </table>
+                <div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <?php endforeach;endif;  ?>
+
+    </div>
+
+<?php 
+endif; 
+
+

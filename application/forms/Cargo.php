@@ -1,0 +1,133 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of miembro
+ *
+ * @author manuelry
+ */
+class Application_Form_Cargo extends Fmo_Form_Abstract {
+
+    const E_NOMBRE    = 'descripcion'   ; 
+    const E_NIVEL    = 'nivel'    ;   
+        
+    const E_EDITAR  = 'editar' ;
+    const E_GUARDAR  = 'guardar' ;
+    const E_MODIFICAR  = 'modificar' ;
+    const E_CANCELAR = 'cancelar';
+
+    /*
+     * Método de creación del formulario.
+     */
+    public function init() {
+          $this->getView()->headLink()->appendStylesheet($this->getView()->baseUrl('public/css/style.css'));
+         $tCargo = new Application_Model_DbTable_Cargo();
+        // Campo para ingresar nombre del cargo.
+        $CampoNombre = new Zend_Form_Element_Text(self::E_NOMBRE);
+        $CampoNombre->setLabel('Nombre Cargo:')
+                    ->setRequired()
+                    //->addValidator('alpha',' ',true)
+                    ->addValidator('StringLength', false, array('min' => 1, 'max' => 45))
+                    //->addValidator('Db_NoRecordExists', false, array('table' => $tCargo->info(Zend_Db_Table::NAME),
+                    //'schema' => $tCargo->info(Zend_Db_Table::SCHEMA),
+                    //'field' => 'descripcion'))   
+                    ->addFilter('StringTrim')                
+                    ->addFilter('StringToUpper') 
+                    ->setDecorators($this->_decoratorElement);
+        $this->addElement($CampoNombre);
+                
+           // Combobox para seleccionar el nivel del cargo.
+        $comboboxNivel = new Zend_Form_Element_Select(self::E_NIVEL);
+        $comboboxNivel->setLabel('Nivel cargo:')
+                ->setRequired()
+                ->addMultiOption('', 'Seleccione')                               
+                ->addMultiOption('1','1')
+                ->addMultiOption('2','2')                
+                ->addMultiOption('3','3')               
+                ->addMultiOption('4','4')
+                ->setDecorators($this->_decoratorElement);
+        $this->addElement($comboboxNivel);
+        
+              // Botones del formulario.
+        $guardar = new Zend_Form_Element_Submit(self::E_GUARDAR);
+        $guardar->setLabel('Guardar')
+                ->setIgnore(true);
+        $this->addElement($guardar);
+        
+        // Botones del formulario.
+        $cancelar = new Zend_Form_Element_Submit(self::E_CANCELAR);
+        $cancelar->setLabel('Cancelar')
+                ->setIgnore(true);
+        $this->addElement($cancelar);
+        
+         // Botones del formulario.
+        $modificar = new Zend_Form_Element_Submit(self::E_MODIFICAR);
+        $modificar->setLabel('Modificar')
+                ->setIgnore(true);
+        $this->addElement($modificar);
+        
+        $this->setCustomDecorators();
+                
+    }
+     /* 
+     * Método que permite guardar un nuevo cargo.
+     */
+    public function guardarNuevo() {
+                
+        $tCargo = new Application_Model_DbTable_Cargo();        
+        $registro = $tCargo->createRow();
+              
+        $registro->descripcion = trim($this->getValue(self::E_NOMBRE));
+        $registro->nivel_cargo = $this->getValue(self::E_NIVEL);            
+        $registro->save(); 
+   }
+   
+    /* 
+     * Método que permite editar un cargo.
+    */   
+   public function editarCargo($id) {
+        $registro = Application_Model_DbTable_Cargo::findOneById($id);
+        
+        if (!$registro) {
+            throw new Exception('No puede modificar este registro');
+        }else{
+        
+        // Se actualiza el registro correspondiente al cargo.
+        $registro->descripcion = trim($this->getValue(self::E_NOMBRE));
+        $registro->nivel_cargo = $this->getValue(self::E_NIVEL);
+        $registro->save();     
+       
+        
+    }
+   }
+   
+   
+    public function proceso(array $data)
+            
+    {       $this->setDefaults($data);
+            if (($this->getValue(self::E_GUARDAR)) && ($this->isValid($data))) {
+                //Fmo_Logger::debug($this->getValue(self::E_NOMBRE));
+                $filter = new Zend_Filter_StringToUpper();
+                $cargo = $filter->filter($this->getValue(self::E_NOMBRE));
+                
+                if(!Application_Model_Cargo::validarCargo(trim($cargo))){
+                    $this->guardarNuevo();
+                    
+                }else{
+                $this->getElement(self::E_NOMBRE)->addError('Ya Existe el cargo ');    
+                }
+            }
+       return !$this->hasErrors();
+       
+   }
+   public function valoresPorDefecto($nombre,$nivel)
+    {
+        $this->setDefault(self::E_NOMBRE, $nombre)                
+             ->setDefault(self::E_NIVEL, $nivel);
+    }
+}

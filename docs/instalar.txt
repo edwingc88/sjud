@@ -1,0 +1,7 @@
+A
+
+CONFIGURACIÓN
+=============
+
+El siguiente documento tiene objetivo de ayudarte a instalar, crear y
+configurar a tu proyecto 

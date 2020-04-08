@@ -1,0 +1,101 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_AdjuntoResolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    
+?>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+ 
+    <table class="general" summary="Adjuntos de Resolucion" style="width: 60%" id="tabla1">
+        <caption>ADJUNTOS DE RESOLUCIÓN<?php echo $this->escape($tituloForm); ?></caption>
+    </table>
+    
+    <br></br>
+    
+    <table  align="center" summary="Adjuntos " style="width: 60%" id="tabla4">
+      
+        <center align="center">
+            <?php
+        echo $this->form->getElement(Application_Form_AdjuntoResolucion::E_BROWSE)->renderFile(),
+             $this->form->getElement(Application_Form_AdjuntoResolucion::E_BROWSE)->getDescription(),
+             $this->form->getElement(Application_Form_AdjuntoResolucion::E_BROWSE)->renderErrors();
+        ?>
+        </center>
+           
+         <br>
+         <center align="center">Tamaño máximo del .pdf no debe exceder de 2MB</center>
+         <br>
+         
+        <center align="center"> <?php
+        echo $this->form->getElement(Application_Form_AdjuntoResolucion::E_VOLVER)->renderViewHelper(),
+             $this->form->getElement(Application_Form_AdjuntoResolucion::E_AGREGAR)->renderViewHelper();
+        ?></center>
+    </table>
+ <?php ?>
+ <br></br>
+  
+    <table id="listadoAdjuntos" class="general" summary="Titulo" style="width: 60%">
+       <thead>
+        <tr>
+        <th colspan="4">Documentos adjuntos de la resolución <?php echo $this->escape($tituloForm); ?> </th>
+        </tr>
+            <tr>
+                <th>N°</th>
+                <th>Nombre Documento</th>
+                <th>Elim</th>        
+            </tr>    
+        </thead>
+        
+        <tbody>
+            
+            <?php
+            $consultaArchivo = Application_Model_AdjuntoResolucion::getAllAdjuntosResolucion($this->idView);
+        
+            if(!empty ($consultaArchivo)):
+                $contador = 0;
+                foreach ($consultaArchivo as $index => $consultaArchivo):
+                    ?>        
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                       <td align="center">
+                                <!--  <a href="<?php /* echo $this->escape($consultaArchivo->ruta)?>" target="_blank">
+                                <?php echo $this->escape($consultaArchivo->nombre);*/ ?></a>-->
+                           
+                     <a href="<?php  echo $this->url(array('module' => 'default', 'controller' => 'Resolucion','action' => 'abrir', 'tipo_adjunto'=>'resolucion', 'id_adjunto' => $consultaArchivo->id,
+                            'page' => $this->page )); ?>" title="Ver Adjunto">
+                                <?php echo $this->escape($consultaArchivo->nombre);  ?> </a>
+                       </td>
+                       
+                                               
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'eliminar', 'id_adjunto' => $consultaArchivo->id,'id' => $this->id1View,'id1' => $this->id2View,
+                            'anio' => $this->anioView,'page' => $this->page ,'tipo' => 'adjunto')); ?>" title="Eliminar adjunto">
+                                <?php echo $this->img('ico_eliminar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+                
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="11" align="center">No tiene documentos adjuntos</td>
+                </tr>
+            <?php  ?>   
+        </tbody>
+    </table>
+  <?php endif; ?> 
+  
+ 
+<?php
+endif;

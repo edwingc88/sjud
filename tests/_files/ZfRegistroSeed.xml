@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <zfregistro id_transaccion="12345678901234567890123456789012" 
+                operacion="CREATE" usuario="testing_user" 
+                ip_cliente="127.0.0.1" 
+                agente_cliente="Mozilla/5.0 (X11; Linux x86_64; rv:16.0) Gecko/20100101 Firefox/16.0 Iceweasel/16.0.2 FirePHP/0.7.1"
+                tabla_esquema="sch_zfbase"
+                tabla_nombre="zf_registro"
+                tabla_clave_primaria=""
+                tabla_clave_primaria_valor=""
+                tabla_campo=""
+                tabla_valor_viejo=""
+                tabla_valor_nuevo=""
+                fecha_hora="" />
+    
+</dataset>

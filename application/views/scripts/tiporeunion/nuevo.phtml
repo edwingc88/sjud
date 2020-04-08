@@ -1,0 +1,110 @@
+<?php
+/*
+ * Vista para el registro de los estados de los documentos.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_TipoReunion):
+    $tituloForm = $this->form->getLegend();   
+    echo $this->form->renderForm(false);
+    ?>
+
+   <!-- Icono volver a la página principal-->
+    <!-- <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> -->
+   
+    <p align="right">
+    <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Volver al Menú"; ?> </a>
+</p>
+   
+    <table class="general" summary="Agregar Nuevo Tipo de Reunion" style="width: 70%" id="tabla1">
+        <caption>AGREGAR NUEVO TIPO DE REUNIÓN</caption>
+    </table>
+
+    <br></br>
+
+    
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                echo $this->form->setDefault(Application_Form_Estado::E_NOMBRE, $this->nombreView)
+                        ->getElement(Application_Form_Estado::E_NOMBRE)->renderViewHelper(),
+                $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderErrors();
+                ?>    
+            </td>
+
+        </tr>
+     
+    </table> 
+
+    <!--<p align="center"><?php
+            echo $this->form->getElement(Application_Form_Estado::E_GUARDAR)->renderViewHelper(),
+            $this->form->getElement(Application_Form_Estado::E_CANCELAR)->renderViewHelper();
+    ?></p>-->
+    
+    
+    <div align="center">
+    <p class="p_boton"><?php
+        
+        echo $this->form->getElement(Application_Form_Estado::E_GUARDAR)->renderViewHelper();
+       
+      ?>
+      
+    </p >
+        <!-- EDWIN-->
+    <p class="p_boton">
+        <a class="pureCssMenui0 boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "  Cancelar  "; ?> </a>
+    </p> 
+</div>
+
+    <table id="listadoEstados" class="general" summary="Listado de Tipos Reunion" style="width: 80%">
+        <caption>Listado de Tipos Reunion</caption>
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Nombre</th>
+                <th>Editar</th>        
+            </tr>    
+        </thead>
+        <tbody>
+    <?php
+    $contador = 0;
+    if ($this->data instanceof Zend_Paginator && $this->data->count()):
+        foreach ($this->data as $consultatipos):
+            ?>
+                    <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber(++$contador); ?></td>
+                        <td align="center"><?php echo $this->escape($consultatipos->descripcion); ?></td>
+                        <td align="center">
+                            <a href="<?php echo $this->url(array('action' => 'editar', 'id_tipo' => $consultatipos->id,
+                'nombre' => $consultatipos->descripcion, 'page' => $this->page));
+            ?>" title="Editar Datos Tipo Reunion">
+                               <?php echo $this->img('ico_editar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+            else:
+                ?>
+                <tr>
+                    <td align="center" colspan="5">La consulta no devolvió registros.</td>
+                </tr>
+            <?php
+            endif;
+            ?>
+        </tbody>
+    </table>
+    <?php
+    if ($this->data instanceof Zend_Paginator):
+        echo $this->paginationControl($this->data);
+    endif;
+    ?>     
+      
+
+    <?php
+
+endif;

@@ -1,0 +1,90 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_AdjuntoPunto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+ 
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>  
+   
+    <table class="general" summary="Titulo" style="width: 60%" id="tabla1">
+        <caption>Adjuntos de Punto <?php echo $this->escape($tituloForm); ?></caption>
+    </table>
+    
+    <br></br>
+    <table  align="center" summary="Adjuntos " style="width: 60%" id="tabla4">
+      
+        <center align="center">
+            <?php
+        echo $this->form->getElement(Application_Form_AdjuntoPunto::E_BROWSE)->renderFile(),
+             $this->form->getElement(Application_Form_AdjuntoPunto::E_BROWSE)->renderErrors();
+        ?>
+        </center>
+           
+    <center align="center"> <?php
+        echo $this->form->getElement(Application_Form_AdjuntoPunto::E_VOLVER)->renderViewHelper(),
+             $this->form->getElement(Application_Form_AdjuntoPunto::E_AGREGAR)->renderViewHelper();
+        ?></center>
+    </table>
+    
+    <br></br>
+ <?php ?>
+ 
+  
+    <table  class="general" summary="Titulo" style="width: 60%" id="tabla2">
+        <tr>
+        <th colspan="3">Documentos adjuntos del punto <?php echo $this->escape($tituloForm); ?> </th>
+        </tr>
+            <tr>
+                <th>N°</th>
+                <th>Nombre Documento</th>
+                <th>Elim</th>        
+            </tr>    
+        </thead>
+        
+        <tbody>
+            
+            <?php
+            $consultaArchivo = Application_Model_AdjuntoPunto::getAllAdjuntosPunto($this->indiceView);
+        
+            if(!empty ($consultaArchivo)):
+                $contador = 0;
+                foreach ($consultaArchivo as $index => $consultaArchivo):
+                    ?>        
+                    <tr>
+                       <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                       <td align="center">
+                        <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Resolucion','action' => 'abrir','tipo_adjunto'=>'punto',  'id_adjunto' => $consultaArchivo->id,
+                            'page' => $this->page )); ?>" title="Ver Adjunto">
+                                <?php echo $this->escape($consultaArchivo->nombre); ?></a></td>
+                       
+                                               
+                        <td align="center">
+                        <a href="<?php echo $this->url(array('action' => 'eliminar', 'id_adjunto' => $consultaArchivo->id,'tipo' => $this->tipoView ,
+                            'indice' => $this->indiceView,'siglas' => $this->siglasView,'id' => $this->idView,'anio' => $this->anioView,'modalidad' => $this->modalidadView,
+                            'page' => $this->page )); ?>" title="Eliminar adjunto">
+                                <?php echo $this->img('ico_eliminar.png'); ?></a></td>
+                    </tr>
+                    <?php
+                endforeach;
+                
+            ;else:
+                ?>
+                <tr>
+                    <td colspan="3" align="center">No tiene documentos adjuntos</td>
+                </tr>
+            <?php  ?>   
+        </tbody>
+    </table>
+  <?php endif; ?> 
+           
+<?php
+endif;

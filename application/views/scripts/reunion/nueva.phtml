@@ -1,0 +1,93 @@
+<?php
+/*
+ * Vista para el registro de nueva reunion.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */  
+
+if ($this->form instanceof Application_Form_Reunion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+<!-- Icono volver a la página principal-->
+   
+    <!--Edwin-->
+<div align="right">
+        <p class="p_boton">
+           <a class=" boton_menu_principal"  href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo "Pagina Principal"; ?> </a>
+       </p> 
+</div>
+    
+    
+<table class="general" summary="Titulo" style="width: 60%" id="tabla1">
+        <caption>AGREGAR NUEVA REUNIÓN</caption>
+    </table>
+    
+    <br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        
+        <tr>
+            <th style="width: 40%">
+                <?php echo $this->form->getElement(Application_Form_Reunion::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 20%">
+                <?php 
+                    echo $this->form->getElement(Application_Form_Reunion::E_FECHA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Reunion::E_FECHA)->renderDescription(),
+                         $this->form->getElement(Application_Form_Reunion::E_FECHA)->renderErrors();
+                    ?>
+                   
+            </td>
+        </tr> 
+        <tr>
+         <th style="width: 40%">
+                <?php echo $this->form->getElement(Application_Form_Reunion::E_ESTADO_ACTUAL)->getLabel(); ?>
+            </th>
+            <td style="width: 20%">
+                <?php
+                echo $this->form->getElement(Application_Form_Reunion::E_ESTADO_ACTUAL)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Reunion::E_ESTADO_ACTUAL)->renderDescription(),
+                         $this->form->getElement(Application_Form_Reunion::E_ESTADO_ACTUAL)->renderErrors();?>
+                    
+                       
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 40%">
+                <?php echo $this->form->getElement(Application_Form_Reunion::E_REUNION)->getLabel(); ?>
+            </th>
+            <td style="width: 20%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Reunion::E_REUNION,$this->idReunionView)
+                         ->getElement(Application_Form_Reunion::E_REUNION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Reunion::E_REUNION)->renderErrors();
+                ?> 
+            </td>
+                      
+        </tr>
+        
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Reunion::E_ESTADO_NUEVO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Reunion::E_ESTADO_NUEVO,$this->nuevoView)
+                         ->getElement(Application_Form_Reunion::E_ESTADO_NUEVO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Reunion::E_ESTADO_NUEVO)->renderErrors();
+                ?> 
+            </td>
+                      
+        </tr>
+            
+         
+    </table> 
+    
+    <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Reunion::E_GUARDAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Reunion::E_CANCELAR)->renderViewHelper();
+        ?></p>
+    
+<?php
+endif;

@@ -1,0 +1,70 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+  
+<?php 
+
+if ( $this->generarExcel == null):
+echo $this->calendario->getHtml();
+ ?>
+
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> 
+    
+<p align="center">
+<a class="button" href="<?php
+               echo $this->url(array('module' => 'default', 'controller' => 'Consulta', 'action' => 'reunion',
+                   'tipo' => 'pdf','page' => $this->page), null, true);
+               ?>">Generar PDF</a>
+<a class="button" href="<?php
+               echo $this->url(array('module' => 'default', 'controller' => 'Consulta', 'action' => 'reunion',
+                   'tipo' => 'excel','page' => $this->page), null, true);
+               ?>">Generar EXCEL</a>
+
+</p>
+
+ <!--INICIO de código para la impresión en el documento ".xls"-->
+        <?php
+        endif;
+        if ( $this->generarExcel == true ):
+            ?>
+        
+        <table class="general" summary="Listado de Resoluciones" style="width: 80%" id="tabla1" >
+            <thead>
+                <tr>
+                    <th colspan="3">Listado de Reuniones</th>
+                </tr>
+                <tr>
+                    <th>N° Reunión </th>   
+                    <th>Fecha Reunión</th>                                   
+                    <th>Tipo Reunión </th>       
+                </tr>    
+            </thead>
+            <tbody>
+                <?php
+                 if (($this->data)):
+                    foreach ($this->data as $consultaReunion):
+                        ?>        
+                        <tr>
+                            <td align="center"><?php echo $this->escape($consultaReunion->id); ?> </td>
+                            <td align="center" ><?php echo $this->escape($consultaReunion->fecha_real_reu); ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaReunion->tipo_nombre); ?> </td>
+                            
+                        </tr>
+                        <?php
+                    endforeach;
+                    ;
+                else:
+                    ?>
+                    <tr>
+                        <td colspan="3" align="center">No se encontraron resoluciones</td>
+                    </tr>
+        <?php endif; ?>   
+            </tbody>
+        </table>
+          <?php  
+        endif;
+       ?> 
+    
+      
+<?php

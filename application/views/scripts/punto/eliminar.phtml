@@ -1,0 +1,55 @@
+<?php
+
+/*
+ * Vista para eliminar el registro de un acto protocolar.
+ * 
+ * @author Kevin Flores <kevinf@ferrominera.gob.ve>
+ */
+if ($this->form instanceof Application_Form_Punto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+    
+?>
+
+  <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+
+<table class="general" summary="ELIMINAR ADJUNTO PUNTO" style="width: 80%" id="tabla1">
+        <caption>ELIMINAR ADJUNTO PUNTO</caption>
+    </table>
+
+    <br>
+
+    <table class="general" summary="Datos del Acto" style="width: 65%" id="tabla4">
+                <thead>
+                    <tr>
+                        <th width="2%">Id</th>
+                        <th width="40%" >Nombre</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if($this->idAdjuntoView != null && $this->nombreView != null):
+                    
+                            ?>
+                            <tr>
+                                <td align="center"><?php echo $this->escape($this->idAdjuntoView); ?></td>
+                                <td align="center"><?php echo $this->escape($this->nombreView); ?></td>
+                                </tr>
+                     <?php
+                     endif;
+                     ?>
+                </tbody>
+    </table>
+
+<p align="center">
+    <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Punto', 'action' => 'eliminar', 'confirmar' => 'N', 'id_adjunto' => $this->idAdjuntoView, 'tipo' => $this->tipoView ,
+                            'indice' => $this->indiceView,'siglas' => $this->siglasView,'id' => $this->idView,'anio' => $this->anioView,'modalidad' => $this->modalidadView), null, true); ?>">Volver</a>
+    <a class="button" href="<?php echo $this->url(array('module' => 'default', 'controller' => 'Punto', 'action' => 'eliminar', 'confirmar' => 'S', 'id_adjunto' => $this->idAdjuntoView,'tipo' => $this->tipoView ,
+                            'indice' => $this->indiceView,'siglas' => $this->siglasView,'id' => $this->idView,'anio' => $this->anioView,'modalidad' => $this->modalidadView), null, true); ?>"><?php echo $this->img('ico_eliminar.png'); ?> Eliminar</a>
+</p>
+  
+<?php
+endif;

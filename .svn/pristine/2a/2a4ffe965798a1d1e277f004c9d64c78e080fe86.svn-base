@@ -1,0 +1,149 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Resolucion):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+
+ <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> 
+   
+    <table class="general" summary="Agregar Nueva Resolucion" style="width: 60%" id="tabla1">
+        <caption>AGREGAR NUEVA RESOLUCIÓN</caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 40%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_GERENCIA,$this->gerenciaView)
+                         ->getElement(Application_Form_Resolucion::E_GERENCIA)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_GERENCIA)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_ASUNTO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_ASUNTO,$this->asuntoView)
+                         ->getElement(Application_Form_Resolucion::E_ASUNTO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_ASUNTO)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_ULT_RESOLUCION)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Resolucion::E_ULT_RESOLUCION)->getValue(),
+                         $this->form->getElement(Application_Form_Resolucion::E_ULT_RESOLUCION)->renderErrors();
+                ?> 
+            </td>
+                      
+        </tr>        
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->getLabel(); ?>
+            </th>
+            
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION,$this->numResolucionView)
+                         ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION)->renderErrors();
+                    echo '/';
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_RESOLUCION1,$this->numResolucion1View)
+                         ->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_RESOLUCION1)->renderErrors();
+                    echo '/';
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_AÑO,$this->añoView)
+                         ->getElement(Application_Form_Resolucion::E_AÑO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_AÑO)->renderErrors();
+                                  
+                    ?> 
+                <br> Formato: 3 dígitos / 3 dígitos /año de la reunión ejm.2020
+            </td>
+                      
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NUM_REUNION)->getLabel(); ?>
+            </th>
+            
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NUM_REUNION,$this->numReunionView)
+                         ->getElement(Application_Form_Resolucion::E_NUM_REUNION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NUM_REUNION)->renderErrors();
+                ?> 
+                <br> Debe estar creada en el calendario y coincidir con la fecha en que se efectúo la reunión
+            </td>
+                      
+        </tr>
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php 
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_FECHA, Fmo_Util::stringToZendDate($this->fechaView)->toString('dd/MM/yyyy'))
+                             ->getElement(Application_Form_Resolucion::E_FECHA);
+                    
+                ?>   
+            </td>
+        </tr>  
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Resolucion::E_NOTIFICACION)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Resolucion::E_NOTIFICACION,$this->notificacionView)
+                         ->getElement(Application_Form_Resolucion::E_NOTIFICACION)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NOTIFICACION)->renderDescription(),
+                         $this->form->getElement(Application_Form_Resolucion::E_NOTIFICACION)->renderErrors();
+                         
+                ?> 
+            </td>
+                      
+        </tr>
+        
+        
+        
+    </table> 
+                
+    
+ <p align="center">
+     <?php
+     echo $this->form->getElement(Application_Form_Resolucion::E_GUARDAR)->renderViewHelper(),
+     $this->form->getElement(Application_Form_Resolucion::E_CANCELAR)->renderViewHelper();?>
+ </p>
+ 
+ <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->url(array('controller' => 'Resolucion', 'action' => 'listado'), null, null); ?>"title="Adjuntar"><?php echo $this->img('adjuntar_4.png'); ?> </a>
+</p> 
+       
+<?php
+endif;

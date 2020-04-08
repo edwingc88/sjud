@@ -1,0 +1,120 @@
+<br></br>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
+  
+ <?php   if ($this->generarExcel == null ):
+        ?>
+
+<!--Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p> 
+
+<form>
+    <table class="general" summary="Detalles" style="width: 90%;color: #000000;border-width: 1px;">
+        <caption style="background: #CCC; border: 1px solid #000000;">DETALLE DE LA SOLICITUD N°<?php echo $this->id1.'/'.$this->id2.'/'.$this->anio ?></caption>
+        <thead>
+            <tr>
+                <th width="20%" style="color: #000000;text-align: justify; background: #F4F7DA">GERENCIA GRAL./COORD.: </th>
+                <td style="text-align: justify;"><?php echo $this->escape($this->data->gga_nombre); ?></td>
+                        
+            </tr>   
+            
+                <th width="20%" style="color: #000000;text-align: justify; background: #F4F7DA">DESCRIPCIÓN O ASUNTO:</th>
+                <td style="text-align: justify;"><?php echo $this->escape($this->data->observacion); ?></td>
+                      
+            <tr>    
+                <th width="20%" style="color: #000000; text-align: justify; background: #F4F7DA">NÚMERO DE LA REUNIÓN:</th>
+                  <td style="text-align: justify;"><?php echo $this->escape($this->data->id_reu); ?></td>
+                        
+            </tr>
+            
+            <tr>    
+                <th width="20%" style="color: #000000; text-align: justify; background: #F4F7DA">FECHA DE LA REUNIÓN:</th>
+                <td style="text-align: justify;"><?php echo $this->escape($this->data->fecha_real_reu); ?></td>
+                     
+            </tr>
+            
+            <tr>    
+                <th width="20%" style="color: #000000; text-align: justify; background: #F4F7DA">ESTATUS ACTUAL:</th>
+                   <td style="text-align: justify;"><?php echo $this->escape($this->data->estado_nombre); ?></td>
+
+            </tr>
+        </thead>
+    </table>
+            
+                        
+
+    <center>
+        <a class="button" href="<?php
+               echo $this->url(array('module' => 'default', 'controller' => 'Consulta', 'action' => 'resoluciones',
+                    'numRes' => $this->numResolucionView,
+                    'numResolucion' => $this->numResolucion1View,
+                    'anioRes' => $this->anioResolucionView,
+                    'numReu' => $this->numReunionView,
+                    'gerenciaRes' => $this->gerenciaView,
+                    'asunto' => $this->palabraView,
+                    'fechaRes' => $this->fechaView,                          
+                    'estadoRes' => $this->estadoView,
+                    'anio2' => $this->anio2View, 
+                    'page' => $this->page), null, true);
+               ?>"><?php echo $this->img('ico_volver.png'); ?> Volver</a>
+        <a class="button" href="<?php
+               echo $this->url(array('module' => 'default', 'controller' => 'Consulta', 'action' => 'detalleresolucion',
+                   'indice' => $this->indice,'id' => ' ','tipo' => 'pdf','page' => $this->page), null, true);
+               ?>">Generar PDF</a>
+        <a class="button" href="<?php
+               echo $this->url(array('module' => 'default', 'controller' => 'Consulta', 'action' => 'detalleresolucion',
+                   'indice' => $this->indice,'id' => ' ','tipo' => 'excel','page' => $this->page), null, true);
+               ?>">Generar EXCEL</a>
+            
+         </center>
+</form>
+
+<?php
+endif;
+        if ( $this->generarExcel == true  ) {
+        ?>
+        
+        <table class="general" summary="Listado de Resoluciones" style="width: 80%;" id="tabla1" >
+            <thead>
+                <tr>
+                                      
+                    <th colspan="5" >DETALLE DE LA SOLICITUD N°<?php echo $this->id1.'/'.$this->id2.'/'.$this->anio?></th>
+                </tr>
+                <tr>
+                    <th >GERENCIA GRAL./COORD.:  </th>   
+                    <th >DESCRIPCIÓN O ASUNTO: </th>                                   
+                    <th >NÚMERO DE LA REUNIÓN: </th> 
+                    <th >FECHA DE LA REUNIÓN: </th>  
+                    <th >ESTATUS ACTUAL: </th>       
+                </tr>    
+            </thead>
+            <tbody>
+                <?php
+                if (($this->datos )):
+                    $consultaResoluciones = $this->datos;
+                      ?>        
+                        <tr>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->gga_nombre); ?> </td>
+                            <td align="center" ><?php echo $this->escape($consultaResoluciones->observacion); ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->id_reu); ?> </td>
+                            
+                            <td align="center"><?php
+                                echo $this->escape($consultaResoluciones->fecha_real_reu);
+                                ?> </td>
+                            <td align="center"><?php echo $this->escape($consultaResoluciones->estado_nombre); ?> </td>
+                        </tr>
+                        <?php
+                    ;
+                else:
+                    ?>
+                    <tr>
+                        <td colspan="5" align="center">No se encontraron resoluciones</td>
+                    </tr>
+        <?php endif; ?>   
+            </tbody>
+        </table>
+         
+          <?php  
+        }
+       ?> 

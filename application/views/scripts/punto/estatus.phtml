@@ -1,0 +1,82 @@
+<?php
+
+/*
+ * Vista para el registro de las resoluciones.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Punto):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+
+   <!-- Icono volver a la página principal-->
+    <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+    </p>
+   
+    <table class="general" summary="Actualizar estatus de Punto" style="width: 60%" id="tabla1">
+        <caption>ACTUALIZAR ESTADO DE <?php echo  $this->stringToUpper($tituloForm)?></caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 50%" id="tabla2">
+       
+        
+        <tr>
+            <th style="width: 10%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_ESTADO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                echo $this->form->getElement(Application_Form_Punto::E_ESTADO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_ESTADO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Punto::E_ESTADO)->renderErrors();
+                        
+                ?>
+                    
+                       
+            </td>
+        </tr>
+        <tr>
+            <th style="width: 10%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_FECHA)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php 
+                    echo $this->form->setDefault(Application_Form_Punto::E_FECHA, $this->fechaView)
+                             ->getElement(Application_Form_Punto::E_FECHA);
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+        <th style="width: 10%">
+                <?php echo $this->form->getElement(Application_Form_Punto::E_ASUNTO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->setDefault(Application_Form_Punto::E_ASUNTO,$this->asuntoView)
+                         ->getElement(Application_Form_Punto::E_ASUNTO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Punto::E_ASUNTO)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+          </tr>
+    
+        
+    </table> 
+    
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Punto::E_GUARDAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Punto::E_CANCELAR)->renderViewHelper();
+        ?></p>
+
+    
+<?php
+endif;

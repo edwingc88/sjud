@@ -1,0 +1,66 @@
+<?php
+
+/*
+ * Vista para editar los cargos de la junta directiva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Cargo):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+
+<!--Icono volver a la página principal-->
+  <!--
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p> 
+-->
+    <table class="general" summary="Modificar Cargo" style="width: 60%" id="tabla1">
+        <caption>Modificar Cargo</caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->renderDescription(),
+                         $this->form->getElement(Application_Form_Cargo::E_NOMBRE)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Cargo::E_NIVEL)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Cargo::E_NIVEL)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Cargo::E_NIVEL)->renderDescription(),
+                         $this->form->getElement(Application_Form_Cargo::E_NIVEL)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+       
+    </table> 
+   
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Cargo::E_MODIFICAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Cargo::E_CANCELAR)->renderViewHelper();
+        ?></p>
+ 
+
+<?php
+endif;

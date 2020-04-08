@@ -1,0 +1,22 @@
+<?php
+$this->headLink()
+     ->appendStylesheet($this->baseUrl('../zendlib/public/js/JSCal2-1.9/border-radius.css'), 'screen')
+     ->appendStylesheet($this->baseUrl('../zendlib/public/js/JSCal2-1.9/jscal2.css'), 'screen')
+     ->appendStylesheet($this->baseUrl("../zendlib/public/js/JSCal2-1.9/{$this->element->getCalendarStyle()}/{$this->element->getCalendarStyle()}.css"), 'screen');
+$this->headScript()
+     ->appendFile($this->baseUrl('../zendlib/public/js/JSCal2-1.9/jscal2.js'))
+     ->appendFile($this->baseUrl('../zendlib/public/js/JSCal2-1.9/lang/es.js'));
+echo $this->{$this->element->helper}($this->element->getName(), $this->element->getValue(), $this->element->getAttribs()), PHP_EOL;
+$this->imgAttribs['id'] = "img-{$this->element->getName()}";
+echo $this->img($this->imgAttribs['src'], $this->imgAttribs), PHP_EOL,
+    '<script type="text/javascript">', PHP_EOL, 
+    '//<![CDATA[ ', PHP_EOL, 
+    $this->element->getCalendarScript(), PHP_EOL, 
+    ' //]]> ', PHP_EOL, 
+    '</script>', PHP_EOL;
+if ($this->element->getDescription()):
+    echo '<span class="hint">', $this->element->getDescription(), '</span>';
+endif;
+if ($this->element->getMessages()):
+    echo $this->formErrors($this->element->getMessages());
+endif;

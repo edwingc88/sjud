@@ -1,0 +1,80 @@
+<?php
+/*
+ * Vista para el modificar los estados.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Estado):
+    $tituloForm = $this->form->getLegend();    
+    echo $this->form->renderForm(false);
+?>
+ <!--Icono volver a la página principal-->
+  <p align="right">
+  <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+  </p> 
+ 
+    <table class="general" summary="Titulo" style="width: 60%" id="tabla1">
+        <caption>MODIFICAR ESTADO</caption>
+    </table>
+    
+<br></br>
+
+    <table class="general" summary="<?php echo $this->escape($tituloForm); ?>" style="width: 35%" id="tabla2">
+          <?php
+    
+    ?>
+        
+        <tr>
+            <th style="width: 20%">
+                <?php 
+                
+                echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderDescription(),
+                         $this->form->getElement(Application_Form_Estado::E_NOMBRE)->renderErrors();
+                    
+                ?>   
+            </td>
+            
+        </tr>
+        <tr>
+         <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Estado::E_COLOR)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Estado::E_COLOR)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Estado::E_COLOR)->renderDescription(),
+                         $this->form->getElement(Application_Form_Estado::E_COLOR)->renderErrors();
+                         
+                ?>
+                    
+                       
+            </td>
+        </tr> 
+        <tr>
+            <th style="width: 20%">
+                <?php echo $this->form->getElement(Application_Form_Estado::E_TIPO)->getLabel(); ?>
+            </th>
+            <td style="width: 10%">
+                <?php
+                    echo $this->form->getElement(Application_Form_Estado::E_TIPO)->renderViewHelper(),
+                         $this->form->getElement(Application_Form_Estado::E_TIPO)->renderDescription(),
+                         $this->form->getElement(Application_Form_Estado::E_TIPO)->renderErrors();
+     
+                    ?> 
+            </td>
+                      
+        </tr>
+    </table> 
+    
+ <p align="center"><?php
+        echo $this->form->getElement(Application_Form_Estado::E_MODIFICAR)->renderViewHelper(),
+        $this->form->getElement(Application_Form_Estado::E_CANCELAR)->renderViewHelper();
+        ?></p>
+       
+<?php
+endif;

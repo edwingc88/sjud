@@ -1,0 +1,119 @@
+<?php
+
+/*
+ * Vista para el listado de los miembros anteriores de la junta directiva.
+ * 
+ * @author manuelry <manuelry@ferrominera.gob.ve>
+ */                                                                                                           
+if ($this->form instanceof Application_Form_Miembro):
+    $tituloForm = $this->form->getLegend();
+    echo $this->form->renderForm(false);
+?>
+    
+  <p align="right">
+    <a class="pureCssMenui0" href="<?php echo $this->baseUrl($this->urlDefault); ?>"title="Página Principal"><?php echo $this->img('vol_1.png'); ?> </a>
+</p> 
+
+    
+    <table class="general" summary="Miembros Historicos Junta Directiva" style="width: 80%" id="tabla1">
+        <caption>Miembros Anteriores Junta Directiva</caption>
+    </table>
+    <br>
+    
+    <table class="general" summary="Miembros Historicos Junta Directiva" style="width: 80%" id="tabla1">
+        <thead>
+            <tr>
+                <th>N°</th>
+                <th>Cargo</th>
+                <th>Miembro</th>
+                <th>Fecha</th>   
+                <th>Fecha Inicio Miembro</th>
+                <th>Fecha Fin Miembro</th>               
+               <!-- <th>Editar</th>  -->
+               
+            </tr>    
+        </thead>
+        <tbody>  
+           <?php 
+          if ($this->data instanceof Zend_Paginator && $this->data->count()):
+            $contador = 0;$fecha_actual = ''; 
+                foreach ($this->data as $index => $consultaAnterioresConActual):
+                    
+                   //$juntaModificada = Application_Model_Miembros::modificacionJunta();
+                    //if(!empty ($juntaModificada)):
+                        if($contador == 0 ): ?>
+
+                        <th colspan="7" style="size: 2">Periodo Junta Directiva <?php 
+                         $fecha = new Zend_Date($consultaAnterioresConActual->fecha_periodo); echo $fecha->get(Zend_Date::DATE_LONG);
+                         ?>  
+                         </th><?php    
+                        endif;
+                   
+                        if($fecha_actual != null ): 
+
+                            if($fecha_actual != $consultaAnterioresConActual->fecha_periodo): 
+                            ?>  
+
+                         <th colspan="7" style="size: 2">Periodo Junta Directiva <?php 
+                         $fecha = new Zend_Date($consultaAnterioresConActual->fecha_periodo); echo $fecha->get(Zend_Date::DATE_LONG);
+                         ?>  
+                         </th>
+                             <?php
+                             endif;
+                        endif;
+                        ?>
+            
+                        <tr>
+                        <td align="center"><?php echo Zend_Locale_Format::toNumber( ++$contador); ?></td>
+                       
+                        <td align="center"><?php 
+                        //$consultaCargo = Application_Model_Cargo::getDescriCargo($consultaMiembros->id_cargo);
+                        echo ($consultaAnterioresConActual->descripcion); ?></td>
+                        
+                        <td align="center"><?php echo $this->escape($consultaAnterioresConActual->nombre); ?></td>
+                        <td align="center"><?php 
+                        $fecha_f = new Zend_Date($consultaAnterioresConActual->fecha_periodo);
+                        echo $this->escape($fecha_f->toString('dd/MM/yyyy')); ?></td>
+                        
+                        <?php  $fecha_f = new Zend_Date($consultaAnterioresConActual->fecha_periodo); //fecha_inicio_miembro); Anaicelys Brito ?>
+                        
+                        <td align="center"><?php echo $this->escape($fecha_f->toString('dd/MM/yyyy')); ?></td>
+                        
+                        
+                        <?php  $fecha_f = new Zend_Date($consultaAnterioresConActual->fecha_periodo); //fecha_fin_miembro); Anaicelys Brito ?> 
+                        <td align="center"><?php  
+                        if($consultaAnterioresConActual->m_vigencia_jd == 0):
+                        
+                        echo $this->escape($fecha_f->toString('dd/MM/yyyy'));    
+                        ;else:
+                        
+                        echo $this->escape('') ;   
+                        endif; 
+                        ?></td>
+                        
+                        <!--<a href="<?php echo $this->url(array('action' => 'editar','ficha'=> $consultaAnterioresConActual->ficha,
+                            'fecha'=> $consultaAnterioresConActual->fecha_periodo,
+                            'page' => $this->page )); ?>" title="Editar Datos Miembro">
+                                <?php echo $this->img('ico_editar.png'); ?></a> 
+                        </td> -->
+                    </tr>
+                    
+                <?php
+              $fecha_actual = $consultaAnterioresConActual->fecha_periodo;
+                endforeach;  
+                
+                else:?>  
+                <tr>
+                    <td colspan="7" align="center">No se encontraron miembros</td>
+                </tr>
+               <?php endif; ?>  
+        </tbody>
+    </table>
+     <?php
+    if ($this->data instanceof Zend_Paginator):
+        echo $this->paginationControl($this->data);
+    endif;
+    ?>        
+
+<?php
+endif;

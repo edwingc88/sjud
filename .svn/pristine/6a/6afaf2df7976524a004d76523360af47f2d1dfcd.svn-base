@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report_test" language="groovy" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3b116821-3107-4f8d-a9bf-9af77826b777">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigo" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM zf_registro WHERE id = $P{codigo} ORDER BY fecha_hora]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[Clave primaria y foránea con la transacción.]]></fieldDescription>
+	</field>
+	<field name="id_transaccion" class="java.lang.String">
+		<fieldDescription><![CDATA[Clave foránea con la transacción a anular.]]></fieldDescription>
+	</field>
+	<field name="operacion" class="java.lang.String">
+		<fieldDescription><![CDATA[Tipo de operación realizada CREATE/INSERT, DELETE o UPDATE]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del usuario del trabajador de la empresa.]]></fieldDescription>
+	</field>
+	<field name="ip_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[Dirección IP del cliente]]></fieldDescription>
+	</field>
+	<field name="agente_cliente" class="java.lang.String">
+		<fieldDescription><![CDATA[Información del agente utilizado]]></fieldDescription>
+	</field>
+	<field name="tabla_esquema" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del esquema de la tabla]]></fieldDescription>
+	</field>
+	<field name="tabla_nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la tabla]]></fieldDescription>
+	</field>
+	<field name="tabla_clave_primaria" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre de la clave primaria de la tabla modificada]]></fieldDescription>
+	</field>
+	<field name="tabla_clave_primaria_valor" class="java.lang.String">
+		<fieldDescription><![CDATA[Valor de la clave primaria de la tabla modificada]]></fieldDescription>
+	</field>
+	<field name="tabla_campo" class="java.lang.String">
+		<fieldDescription><![CDATA[Nombre del campo en la tabla modificada]]></fieldDescription>
+	</field>
+	<field name="tabla_valor_viejo" class="java.lang.String">
+		<fieldDescription><![CDATA[Valor anterior o viejo en el campo de la tabla modificada]]></fieldDescription>
+	</field>
+	<field name="tabla_valor_nuevo" class="java.lang.String">
+		<fieldDescription><![CDATA[Valor nuevo en el campo de la tabla modificada]]></fieldDescription>
+	</field>
+	<field name="fecha_hora" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[Fecha de la transacción]]></fieldDescription>
+	</field>
+	<group name="Transacción">
+		<groupExpression><![CDATA[$F{id_transaccion}]]></groupExpression>
+		<groupHeader>
+			<band height="50" splitType="Stretch">
+				<textField>
+					<reportElement x="38" y="21" width="100" height="20" uuid="0c4b72c0-0d0f-4847-b15d-9d7d471adc35"/>
+					<textFieldExpression><![CDATA[$F{id_transaccion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="37">
+			<textField>
+				<reportElement x="80" y="0" width="40" height="20" uuid="b1a9d3db-08b0-43df-894c-d0a78df13e0c"/>
+				<textFieldExpression><![CDATA[$F{operacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="120" y="0" width="40" height="20" uuid="3dad65a2-a1d7-45c7-b090-215c937f9529"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="40" height="20" uuid="2a7b1826-667c-4295-a027-506ad61576c4"/>
+				<textFieldExpression><![CDATA[$F{ip_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="40" height="20" uuid="5fe4b4ca-6b7c-4dcc-bfaf-18a03ae17298"/>
+				<textFieldExpression><![CDATA[$F{agente_cliente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="0" width="40" height="20" uuid="2def2d4c-54dc-437b-af5e-70250b138609"/>
+				<textFieldExpression><![CDATA[$F{tabla_esquema}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="40" height="20" uuid="5c00e6c5-b25c-4c32-9b56-2a9cbb430c08"/>
+				<textFieldExpression><![CDATA[$F{tabla_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="0" width="40" height="20" uuid="01aa4787-0cf3-4385-8fc8-23d6f5b6cf55"/>
+				<textFieldExpression><![CDATA[$F{tabla_clave_primaria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="0" width="40" height="20" uuid="2dafdfad-c245-4b30-80f3-14617bebcdf0"/>
+				<textFieldExpression><![CDATA[$F{tabla_clave_primaria_valor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="40" height="20" uuid="126060b2-d7c4-4afc-8db7-46c073a925ae"/>
+				<textFieldExpression><![CDATA[$F{tabla_campo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="40" height="20" uuid="12aa7302-81de-4cd6-abec-d5c4072db062"/>
+				<textFieldExpression><![CDATA[$F{tabla_valor_viejo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="40" height="20" uuid="50525cb2-ec84-4137-b8dc-ec975795c7db"/>
+				<textFieldExpression><![CDATA[$F{tabla_valor_nuevo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="0" width="40" height="20" uuid="7f00e203-a20b-4352-9dfd-9be64788636f"/>
+				<textFieldExpression><![CDATA[$F{fecha_hora}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
